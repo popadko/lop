@@ -2,7 +2,9 @@
 
 namespace Luminaire\Bundle\IssueBundle\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
+use Oro\Bundle\TagBundle\Entity\Taggable;
 use Oro\Bundle\UserBundle\Entity\User;
 use Oro\Bundle\EntityConfigBundle\Metadata\Annotation\Config;
 use Luminaire\Bundle\IssueBundle\Model\ExtendIssue;
@@ -15,7 +17,7 @@ use Luminaire\Bundle\IssueBundle\Model\ExtendIssue;
  * @ORM\HasLifecycleCallbacks()
  * @Config
  */
-class Issue extends ExtendIssue
+class Issue extends ExtendIssue implements Taggable
 {
     /**
      * @var integer
@@ -108,6 +110,11 @@ class Issue extends ExtendIssue
      * @ORM\Column(name="updated_at", type="datetime")
      */
     private $updatedAt;
+
+    /**
+     * @var ArrayCollection $tags
+     */
+    private $tags;
 
     /**
      * Get id
@@ -381,5 +388,33 @@ class Issue extends ExtendIssue
     public function getCode()
     {
         return $this->code;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function getTaggableId()
+    {
+        return $this->getId();
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function getTags()
+    {
+        $this->tags = $this->tags ?: new ArrayCollection();
+
+        return $this->tags;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function setTags($tags)
+    {
+        $this->tags = $tags;
+
+        return $this;
     }
 }

@@ -2,6 +2,8 @@
 
 namespace Luminaire\Bundle\IssueBundle\Tests\Unit\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Util\ClassUtils;
 use Luminaire\Bundle\IssueBundle\Entity\Issue;
 
 /**
@@ -10,7 +12,7 @@ use Luminaire\Bundle\IssueBundle\Entity\Issue;
 class IssueTest extends EntityTestCase
 {
     /**
-     * @var
+     * @var Issue
      */
     private $entity;
 
@@ -20,6 +22,27 @@ class IssueTest extends EntityTestCase
     protected function setUp()
     {
         $this->entity = new Issue();
+    }
+
+    /**
+     *
+     */
+    public function testTaggableInterface()
+    {
+        $this->assertInstanceOf('Oro\Bundle\TagBundle\Entity\Taggable', $this->entity);
+        $this->assertInstanceOf('Doctrine\Common\Collections\ArrayCollection', $this->entity->getTags());
+
+        $this->assertNull($this->entity->getTaggableId());
+
+        $ref = new \ReflectionProperty(ClassUtils::getClass($this->entity), 'id');
+        $ref->setAccessible(true);
+        $ref->setValue($this->entity, 1);
+
+        $this->assertSame(1, $this->entity->getTaggableId());
+
+        $newCollection = new ArrayCollection();
+        $this->entity->setTags($newCollection);
+        $this->assertSame($newCollection, $this->entity->getTags());
     }
 
     /**
