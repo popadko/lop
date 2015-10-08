@@ -3,12 +3,14 @@
 namespace Luminaire\Bundle\IssueBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Oro\Bundle\EntityConfigBundle\Metadata\Annotation\Config;
 
 /**
  * IssuePriority
  *
  * @ORM\Table(name="luminaire_issue_priority")
  * @ORM\Entity
+ * @Config
  */
 class IssuePriority
 {

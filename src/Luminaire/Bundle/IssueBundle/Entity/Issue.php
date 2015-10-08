@@ -4,6 +4,8 @@ namespace Luminaire\Bundle\IssueBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Oro\Bundle\UserBundle\Entity\User;
+use Oro\Bundle\EntityConfigBundle\Metadata\Annotation\Config;
+use Luminaire\Bundle\IssueBundle\Model\ExtendIssue;
 
 /**
  * Issue
@@ -11,8 +13,9 @@ use Oro\Bundle\UserBundle\Entity\User;
  * @ORM\Table(name="luminaire_issue")
  * @ORM\Entity
  * @ORM\HasLifecycleCallbacks()
+ * @Config
  */
-class Issue
+class Issue extends ExtendIssue
 {
     /**
      * @var integer

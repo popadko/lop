@@ -3,15 +3,22 @@
 namespace Luminaire\Bundle\IssueBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Oro\Bundle\EntityConfigBundle\Metadata\Annotation\Config;
 
 /**
  * IssueType
  *
  * @ORM\Table(name="luminaire_issue_type")
  * @ORM\Entity
+ * @Config
  */
 class IssueType
 {
+    const TYPE_BUG = 'bug';
+    const TYPE_SUBTASK = 'subtask';
+    const TYPE_TASK = 'task';
+    const TYPE_STORY = 'story';
+
     /**
      * @var string
      *
