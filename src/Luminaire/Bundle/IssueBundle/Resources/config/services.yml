@@ -1,0 +1,4 @@
+services:
+#    luminaire_issue.example:
+#        class: Luminaire\Bundle\IssueBundle\Example
+#        arguments: [@service_id, "plain_value", %parameter%]
