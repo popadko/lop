@@ -8,5 +8,11 @@
 /bin/
 /composer.phar
 /vendor/
-/web/bundles/
 .idea/
+/build
+/web/bundles
+/web/css
+/web/js
+/web/uploads/users/*
+/web/media/cache
+/web/build.js
