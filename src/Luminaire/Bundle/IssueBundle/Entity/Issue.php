@@ -41,10 +41,17 @@ class Issue extends ExtendIssue
     private $description;
 
     /**
+     * @var string
+     *
+     * @ORM\Column(name="code", type="string", length=16)
+     */
+    private $code;
+
+    /**
      * @var IssueType
      *
      * @ORM\ManyToOne(targetEntity="IssueType")
-     * @ORM\JoinColumn(name="type_name", referencedColumnName="name")
+     * @ORM\JoinColumn(name="type_name", referencedColumnName="name", nullable=false)
      */
     private $type;
 
@@ -52,7 +59,7 @@ class Issue extends ExtendIssue
      * @var IssueStatus
      *
      * @ORM\ManyToOne(targetEntity="IssueStatus")
-     * @ORM\JoinColumn(name="status_name", referencedColumnName="name")
+     * @ORM\JoinColumn(name="status_name", referencedColumnName="name", nullable=false)
      */
     private $status;
 
@@ -60,7 +67,7 @@ class Issue extends ExtendIssue
      * @var IssuePriority
      *
      * @ORM\ManyToOne(targetEntity="IssuePriority")
-     * @ORM\JoinColumn(name="priority_name", referencedColumnName="name")
+     * @ORM\JoinColumn(name="priority_name", referencedColumnName="name", nullable=false)
      */
     private $priority;
 
@@ -76,7 +83,7 @@ class Issue extends ExtendIssue
      * @var User
      *
      * @ORM\ManyToOne(targetEntity="Oro\Bundle\UserBundle\Entity\User")
-     * @ORM\JoinColumn(name="reporter_id", referencedColumnName="id")
+     * @ORM\JoinColumn(name="reporter_id", referencedColumnName="id", nullable=false)
      */
     private $reporter;
 
@@ -84,7 +91,7 @@ class Issue extends ExtendIssue
      * @var User
      *
      * @ORM\ManyToOne(targetEntity="Oro\Bundle\UserBundle\Entity\User")
-     * @ORM\JoinColumn(name="assignee_id", referencedColumnName="id", nullable=true)
+     * @ORM\JoinColumn(name="assignee_id", referencedColumnName="id")
      */
     private $assignee;
 
@@ -287,7 +294,7 @@ class Issue extends ExtendIssue
      *
      * @return Issue
      */
-    public function setResolution(IssueResolution $resolution)
+    public function setResolution(IssueResolution $resolution = null)
     {
         $this->resolution = $resolution;
 
@@ -350,5 +357,29 @@ class Issue extends ExtendIssue
     public function getAssignee()
     {
         return $this->assignee;
+    }
+
+    /**
+     * Set code
+     *
+     * @param string $code
+     *
+     * @return Issue
+     */
+    public function setCode($code)
+    {
+        $this->code = $code;
+
+        return $this;
+    }
+
+    /**
+     * Get code
+     *
+     * @return string
+     */
+    public function getCode()
+    {
+        return $this->code;
     }
 }

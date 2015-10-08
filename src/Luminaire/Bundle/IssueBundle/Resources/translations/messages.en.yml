@@ -6,6 +6,7 @@ luminaire:
         id.label: Issue id
         summary.label: Summary
         description.label: Description
+        code.label: Issue Code
         assignee.label: Assignee
         status.label: Status
         type.label: Type

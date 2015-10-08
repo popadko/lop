@@ -33,16 +33,17 @@ class LuminaireIssueBundle implements Migration
     {
         $table = $schema->createTable('luminaire_issue');
         $table->addColumn('id', 'integer', ['autoincrement' => true]);
-        $table->addColumn('assignee_id', 'integer', ['notnull' => false]);
-        $table->addColumn('status_name', 'string', ['notnull' => false, 'length' => 16]);
-        $table->addColumn('type_name', 'string', ['notnull' => false, 'length' => 16]);
         $table->addColumn('resolution_name', 'string', ['notnull' => false, 'length' => 16]);
-        $table->addColumn('priority_name', 'string', ['notnull' => false, 'length' => 16]);
-        $table->addColumn('reporter_id', 'integer', ['notnull' => false]);
+        $table->addColumn('priority_name', 'string', ['length' => 16]);
+        $table->addColumn('assignee_id', 'integer', ['notnull' => false]);
+        $table->addColumn('reporter_id', 'integer', []);
+        $table->addColumn('status_name', 'string', ['length' => 16]);
+        $table->addColumn('type_name', 'string', ['length' => 16]);
         $table->addColumn('summary', 'string', ['length' => 255]);
         $table->addColumn('description', 'text', []);
         $table->addColumn('created_at', 'datetime', []);
         $table->addColumn('updated_at', 'datetime', []);
+        $table->addColumn('code', 'string', ['length' => 16]);
         $table->setPrimaryKey(['id']);
         $table->addIndex(['type_name'], 'IDX_901BA050892CBB0E', []);
         $table->addIndex(['status_name'], 'IDX_901BA0506625D392', []);
@@ -108,7 +109,6 @@ class LuminaireIssueBundle implements Migration
         $table->setPrimaryKey(['name']);
     }
 
-
     /**
      * Add luminaire_issue foreign keys.
      *
@@ -117,24 +117,6 @@ class LuminaireIssueBundle implements Migration
     protected function addLuminaireIssueForeignKeys(Schema $schema)
     {
         $table = $schema->getTable('luminaire_issue');
-        $table->addForeignKeyConstraint(
-            $schema->getTable('oro_user'),
-            ['assignee_id'],
-            ['id'],
-            ['onDelete' => null, 'onUpdate' => null]
-        );
-        $table->addForeignKeyConstraint(
-            $schema->getTable('luminaire_issue_status'),
-            ['status_name'],
-            ['name'],
-            ['onDelete' => null, 'onUpdate' => null]
-        );
-        $table->addForeignKeyConstraint(
-            $schema->getTable('luminaire_issue_type'),
-            ['type_name'],
-            ['name'],
-            ['onDelete' => null, 'onUpdate' => null]
-        );
         $table->addForeignKeyConstraint(
             $schema->getTable('luminaire_issue_resolution'),
             ['resolution_name'],
@@ -149,8 +131,26 @@ class LuminaireIssueBundle implements Migration
         );
         $table->addForeignKeyConstraint(
             $schema->getTable('oro_user'),
+            ['assignee_id'],
+            ['id'],
+            ['onDelete' => null, 'onUpdate' => null]
+        );
+        $table->addForeignKeyConstraint(
+            $schema->getTable('oro_user'),
             ['reporter_id'],
             ['id'],
+            ['onDelete' => null, 'onUpdate' => null]
+        );
+        $table->addForeignKeyConstraint(
+            $schema->getTable('luminaire_issue_status'),
+            ['status_name'],
+            ['name'],
+            ['onDelete' => null, 'onUpdate' => null]
+        );
+        $table->addForeignKeyConstraint(
+            $schema->getTable('luminaire_issue_type'),
+            ['type_name'],
+            ['name'],
             ['onDelete' => null, 'onUpdate' => null]
         );
     }
