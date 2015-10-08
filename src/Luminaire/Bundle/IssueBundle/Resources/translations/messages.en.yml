@@ -1,0 +1,48 @@
+luminaire:
+    issue:
+        entity_label: Issue
+        entity_plural_label: Issues
+        entity_description: Represent Issue
+        id.label: Issue id
+        summary.label: Summary
+        description.label: Description
+        assignee.label: Assignee
+        status.label: Status
+        type.label: Type
+        resolution.label: Resolution
+        priority.label: Priority
+        reporter_id.label: Reporter
+        created_at.label: Created on
+        updated_at.label: Updated on
+
+        issuepriority:
+            entity_label: Issue Priority
+            entity_plural_label: Issue Priorities
+            entity_description: Represent Issue Priority
+            name.label: Name
+            order.label: Order
+            label.label: Label
+
+        issueresolution:
+            entity_label: Issue Resolution
+            entity_plural_label: Issue Resolutions
+            entity_description: Represent Issue Resolution
+            name.label: Name
+            order.label: Order
+            label.label: Label
+
+        issuestatus:
+            entity_label: Issue Status
+            entity_plural_label: Issue Statuses
+            entity_description: Represent Issue Status
+            name.label: Name
+            order.label: Order
+            label.label: Label
+
+        issuetype:
+            entity_label: Issue type
+            entity_plural_label: Issue types
+            entity_description: Represent Issue type
+            name.label: Name
+            order.label: Order
+            label.label: Label
