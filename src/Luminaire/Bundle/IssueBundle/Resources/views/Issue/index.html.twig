@@ -2,3 +2,14 @@
 {% import 'OroUIBundle::macros.html.twig' as UI %}
 {% set gridName = 'issues-grid' %}
 {% set pageTitle = 'luminaire.issue.entity_plural_label'|trans %}
+
+{% block navButtons %}
+    {#{% if resource_granted('inventory.vehicle_view') %}#}
+        <div class="btn-group">
+            {{ UI.addButton({
+                'path': path('luminaire_issue_create'),
+                'entity_label': 'luminaire.issue.entity_label'|trans
+            }) }}
+        </div>
+    {#{% endif %}#}
+{% endblock %}

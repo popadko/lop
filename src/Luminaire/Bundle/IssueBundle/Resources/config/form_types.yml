@@ -1,0 +1,8 @@
+parameters:
+    luminaire_issue.form.type.issue.class: Luminaire\Bundle\IssueBundle\Form\Type\IssueType
+
+services:
+    luminaire_issue.form.type.issue:
+        class: %luminaire_issue.form.type.issue.class%
+        tags:
+            - { name: form.type, alias: luminaire_issue }

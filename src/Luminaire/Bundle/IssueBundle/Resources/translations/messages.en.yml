@@ -12,7 +12,7 @@ luminaire:
         type.label: Type
         resolution.label: Resolution
         priority.label: Priority
-        reporter_id.label: Reporter
+        reporter.label: Reporter
         created_at.label: Created on
         updated_at.label: Updated on
 
@@ -47,3 +47,6 @@ luminaire:
             name.label: Name
             order.label: Order
             label.label: Label
+
+        block:
+            general: General Information

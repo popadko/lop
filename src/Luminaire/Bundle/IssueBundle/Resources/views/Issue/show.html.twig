@@ -1,0 +1,65 @@
+{% extends 'OroUIBundle:actions:view.html.twig' %}
+{% import 'OroUIBundle::macros.html.twig' as UI %}
+
+{% block navButtons %}
+    {% if resource_granted('EDIT', issue) %}
+        {{ UI.editButton({
+            'path' : path('luminaire_issue_update', { id: issue.id }),
+            'entity_label': 'luminaire.issue.entity_label'|trans
+        }) }}
+    {% endif %}
+
+    {% if resource_granted('DELETE', issue) %}
+        {#{{ UI.deleteButton({#}
+            {#'dataUrl': path('luminaire_api_delete_issue', {'id': issue.id}),#}
+            {#'dataRedirect': path('luminaire_issue'),#}
+            {#'aCss': 'no-hash remove-button',#}
+            {#'id': 'btn-remove-issue',#}
+            {#'dataId': issue.id,#}
+            {#'entity_label': 'luminaire.issue.entity_label'|trans,#}
+        {#}) }}#}
+    {% endif %}
+{% endblock navButtons %}
+
+{% block pageHeader %}
+    {% set breadcrumbs = {
+    'entity':      issue,
+    'indexPath':   path('luminaire_issue'),
+    'indexLabel': 'luminaire.issue.entity_plural_label'|trans,
+    'entityTitle': issue.model
+    } %}
+    {{ parent() }}
+{% endblock pageHeader %}
+
+{% block content_data %}
+    {% set data %}
+        <div class="widget-content">
+            <div class="row-fluid form-horizontal">
+                <div class="responsive-block">
+                    {{ UI.renderProperty('luminaire.issue.code.label'|trans, issue.code) }}
+                    {{ UI.renderProperty('luminaire.issue.summary.label'|trans, issue.summary) }}
+                    {{ UI.renderProperty('luminaire.issue.description.label'|trans, issue.description) }}
+                    {{ UI.renderProperty('luminaire.issue.type.label'|trans, issue.type) }}
+                    {{ UI.renderProperty('luminaire.issue.priority.label'|trans, issue.priority) }}
+                    {{ UI.renderProperty('luminaire.issue.status.label'|trans, issue.status) }}
+                    {{ UI.renderProperty('luminaire.issue.resolution.label'|trans, issue.resolution) }}
+                    {{ UI.renderProperty('luminaire.issue.reporter.label'|trans, issue.reporter) }}
+                    {{ UI.renderProperty('luminaire.issue.assignee.label'|trans, issue.assignee) }}
+                    {{ UI.renderProperty('luminaire.issue.created_at.label'|trans, issue.createdAt|date) }}
+                    {{ UI.renderProperty('luminaire.issue.updated_at.label'|trans, issue.updatedAt|date) }}
+                </div>
+            </div>
+        </div>
+    {% endset %}
+    {% set dataBlocks = [{
+        'title': 'luminaire.issue.block.general'|trans,
+        'class': 'active',
+        'subblocks': [
+            { 'data' : [data] }
+        ]
+    }] %}
+
+    {% set id = 'issueView' %}
+    {% set data = { 'dataBlocks': dataBlocks } %}
+    {{ parent() }}
+{% endblock content_data %}
