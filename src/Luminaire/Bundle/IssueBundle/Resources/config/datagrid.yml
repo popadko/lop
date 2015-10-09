@@ -1,0 +1,113 @@
+datagrid:
+    issues-grid:
+        source:
+#            acl_resource: inventory.vehicle_view
+            type: orm
+            query:
+                select:
+                    - issue.code
+                    - issue.summary
+                    - type.label
+                    - priority.label
+                    - status.label
+                    - resolution.label
+                    - reporter.id
+                    - assignee.id
+                    - issue.createdAt
+                    - issue.updatedAt
+                from:
+                    - { table: LuminaireIssueBundle:Issue, alias: issue }
+                join:
+                    left:
+                        - { join: issue.type, alias: type}
+                        - { join: issue.priority, alias: priority}
+                        - { join: issue.status, alias: status}
+                        - { join: issue.resolution, alias: resolution}
+                        - { join: issue.reporter, alias: reporter}
+                        - { join: issue.assignee, alias: assignee}
+        columns:
+            code:
+                label: luminaire.issue.code.label
+            summary:
+                label: luminaire.issue.summary.label
+            type:
+                label: luminaire.issue.type.label
+            priority:
+                label: luminaire.issue.priority.label
+            status:
+                label: luminaire.issue.status.label
+            resolution:
+                label: luminaire.issue.resolution.label
+            reporter:
+                label: luminaire.issue.reporter.label
+            assignee:
+                label: luminaire.issue.assignee.label
+            createdAt:
+                label: luminaire.issue.create_at.label
+                frontend_type: date
+            updatedAt:
+                label: luminaire.issue.create_at.label
+                frontend_type: date
+#        properties:
+#            id: ~
+#            update_link:
+#                type: url
+#                route: inventory.vehicle_update
+#                params:
+#                    - id
+#            view_link:
+#                type: url
+#                route: inventory.vehicle_view
+#                params:
+#                    - id
+#            delete_link:
+#                type: url
+#                route: inventory_api_delete_vehicle
+#                params:
+#                    - id
+#        sorters:
+#            columns:
+#                model:
+#                    data_name: v.model
+#                seats:
+#                    data_name: v.seats
+#                boughtAt:
+#                    data_name: v.boughtAt
+#                leasedUntil:
+#                    data_name: v.leasedUntil
+#            default:
+#                model: ASC
+#        filters:
+#            columns:
+#                model:
+#                    type: string
+#                    data_name: v.model
+#                seats:
+#                    type: number
+#                    data_name: v.seats
+#                boughtAt:
+#                    type: date
+#                    data_name: v.boughtAt
+#                leasedUntil:
+#                    type: date
+#                    data_name: v.leasedUntil
+#        actions:
+#            view:
+#                type:          navigate
+#                label:         View
+#                link:          view_link
+#                icon:          eye-open
+#                acl_resource:  inventory.vehicle_view
+#                rowAction:     true
+#            update:
+#                type:          navigate
+#                label:         Update
+#                link:          update_link
+#                icon:          edit
+#                acl_resource:  inventory.vehicle_update
+#            delete:
+#                type:          delete
+#                label:         Delete
+#                link:          delete_link
+#                icon:          trash
+#                acl_resource:  inventory.vehicle_delete

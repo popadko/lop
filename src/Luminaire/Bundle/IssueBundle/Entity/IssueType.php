@@ -41,6 +41,12 @@ class IssueType
      */
     private $label;
 
+
+    public function __toString()
+    {
+        return $this->getLabel();
+    }
+
     /**
      * @param string $name
      */

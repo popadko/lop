@@ -1,0 +1,3 @@
+luminaire_issue_bundle:
+    resource: "@LuminaireIssueBundle/Controller/IssueController.php"
+    type: annotation
