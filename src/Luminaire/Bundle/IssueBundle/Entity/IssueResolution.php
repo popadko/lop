@@ -14,6 +14,14 @@ use Oro\Bundle\EntityConfigBundle\Metadata\Annotation\Config;
  */
 class IssueResolution
 {
+    const RESOLUTION_FIXED = 'fixed';
+    const RESOLUTION_WONT_FIX = 'wont_fix';
+    const RESOLUTION_DUPLICATE = 'duplicate';
+    const RESOLUTION_INCOMPLETE = 'incomplete';
+    const RESOLUTION_CANNOT_REPRODUCE = 'cannot_reproduce';
+    const RESOLUTION_DONE = 'done';
+    const RESOLUTION_WONT_DO = 'wont_do';
+
     /**
      * @var string
      *

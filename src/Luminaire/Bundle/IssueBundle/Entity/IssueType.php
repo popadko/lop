@@ -14,10 +14,10 @@ use Oro\Bundle\EntityConfigBundle\Metadata\Annotation\Config;
  */
 class IssueType
 {
-    const TYPE_BUG = 'bug';
-    const TYPE_SUBTASK = 'subtask';
     const TYPE_TASK = 'task';
+    const TYPE_BUG = 'bug';
     const TYPE_STORY = 'story';
+    const TYPE_SUBTASK = 'subtask';
 
     /**
      * @var string

@@ -14,6 +14,12 @@ use Oro\Bundle\EntityConfigBundle\Metadata\Annotation\Config;
  */
 class IssueStatus
 {
+    const STATUS_OPEN = 'open';
+    const STATUS_REOPENED = 'reopened';
+    const STATUS_IN_PROGRESS = 'in_progress';
+    const STATUS_CLOSED = 'closed';
+    const STATUS_RESOLVED = 'resolved';
+
     /**
      * @var string
      *

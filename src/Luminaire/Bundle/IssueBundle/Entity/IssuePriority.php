@@ -14,9 +14,9 @@ use Oro\Bundle\EntityConfigBundle\Metadata\Annotation\Config;
  */
 class IssuePriority
 {
-    const PRIORITY_MAJOR = 'major';
     const PRIORITY_BLOCKER = 'blocker';
     const PRIORITY_CRITICAL = 'critical';
+    const PRIORITY_MAJOR = 'major';
     const PRIORITY_MINOR = 'minor';
     const PRIORITY_TRIVIAL = 'trivial';
 
