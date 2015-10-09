@@ -7,12 +7,12 @@ datagrid:
                 select:
                     - issue.code
                     - issue.summary
-                    - type.label
-                    - priority.label
-                    - status.label
-                    - resolution.label
-                    - reporter.id
-                    - assignee.id
+                    - type.label as typeLabel
+                    - priority.label as priorityLabel
+                    - status.label as statusLabel
+                    - resolution.label as resolutionLabel
+                    - CONCAT(reporter.firstName, CONCAT(' ', reporter.lastName)) as reporterName
+                    - CONCAT(assignee.firstName, CONCAT(' ', assignee.lastName)) as assigneeName
                     - issue.createdAt
                     - issue.updatedAt
                 from:
@@ -30,23 +30,23 @@ datagrid:
                 label: luminaire.issue.code.label
             summary:
                 label: luminaire.issue.summary.label
-            type:
+            typeLabel:
                 label: luminaire.issue.type.label
-            priority:
+            priorityLabel:
                 label: luminaire.issue.priority.label
-            status:
+            statusLabel:
                 label: luminaire.issue.status.label
-            resolution:
+            resolutionLabel:
                 label: luminaire.issue.resolution.label
-            reporter:
+            reporterName:
                 label: luminaire.issue.reporter.label
-            assignee:
+            assigneeName:
                 label: luminaire.issue.assignee.label
             createdAt:
-                label: luminaire.issue.create_at.label
+                label: luminaire.issue.created_at.label
                 frontend_type: date
             updatedAt:
-                label: luminaire.issue.create_at.label
+                label: luminaire.issue.updated_at.label
                 frontend_type: date
 #        properties:
 #            id: ~

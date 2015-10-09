@@ -53,6 +53,14 @@ class IssueResolution
     }
 
     /**
+     * @inheritDoc
+     */
+    public function __toString()
+    {
+        return $this->getLabel();
+    }
+
+    /**
      * Get name
      *
      * @return string

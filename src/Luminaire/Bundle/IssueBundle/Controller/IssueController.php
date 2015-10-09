@@ -58,10 +58,10 @@ class IssueController extends Controller
 
             return $this->get('oro_ui.router')->redirectAfterSave(
                 [
-                    'route'      => 'inventory.vehicle_update',
+                    'route'      => 'luminaire_issue_update',
                     'parameters' => ['id' => $entity->getId()],
                 ],
-                ['route' => 'inventory.vehicle_index'],
+                ['route' => 'luminaire_issue_show'],
                 $entity
             );
         }

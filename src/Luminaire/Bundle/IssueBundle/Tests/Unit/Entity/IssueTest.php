@@ -46,6 +46,35 @@ class IssueTest extends EntityTestCase
     }
 
     /**
+     * @dataProvider gettersProvider
+     *
+     * @param string $property
+     * @param mixed $value
+     */
+    public function testCreatedAtGet($property, $value)
+    {
+        $getter = 'get' . ucfirst($property);
+
+        $this->assertNull($this->entity->$getter());
+        $ref = new \ReflectionProperty(ClassUtils::getClass($this->entity), $property);
+        $ref->setAccessible(true);
+        $ref->setValue($this->entity, $value);
+
+        $this->assertSame($value, $this->entity->$getter());
+    }
+
+    /**
+     * @return array
+     */
+    public function gettersProvider()
+    {
+        return [
+            ['createdAt', new \DateTime()],
+            ['updatedAt', new \DateTime()],
+        ];
+    }
+
+    /**
      * @dataProvider settersAndGettersDataProvider
      *
      * @param $property
@@ -76,8 +105,6 @@ class IssueTest extends EntityTestCase
             ],
             ['resolution', null],
             ['priority', $this->getMockWithDisabledConstructor('Luminaire\Bundle\IssueBundle\Entity\IssuePriority')],
-            ['createdAt', new \DateTime()],
-            ['updatedAt', new \DateTime()],
         ];
     }
 

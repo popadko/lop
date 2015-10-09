@@ -41,18 +41,20 @@ class IssueType
      */
     private $label;
 
-
-    public function __toString()
-    {
-        return $this->getLabel();
-    }
-
     /**
      * @param string $name
      */
     public function __construct($name)
     {
         $this->name = $name;
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function __toString()
+    {
+        return $this->getLabel();
     }
 
     /**

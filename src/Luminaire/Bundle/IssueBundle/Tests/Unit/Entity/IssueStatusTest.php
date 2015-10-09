@@ -4,6 +4,9 @@ namespace Luminaire\Bundle\IssueBundle\Tests\Unit\Entity;
 
 use Luminaire\Bundle\IssueBundle\Entity\IssueStatus;
 
+/**
+ * Class IssueStatusTest
+ */
 class IssueStatusTest extends EntityTestCase
 {
     /**
@@ -19,6 +22,9 @@ class IssueStatusTest extends EntityTestCase
         $this->entity = new IssueStatus('test');
     }
 
+    /**
+     *
+     */
     public function testGetName()
     {
         $this->assertEquals('test', $this->entity->getName());
@@ -35,6 +41,9 @@ class IssueStatusTest extends EntityTestCase
         $this->abstractTestGettersAndSetters($this->entity, $property, $value);
     }
 
+    /**
+     * @return array
+     */
     public function settersAndGettersDataProvider()
     {
         return [

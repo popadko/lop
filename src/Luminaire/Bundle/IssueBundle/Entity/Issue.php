@@ -16,6 +16,8 @@ use Luminaire\Bundle\IssueBundle\Model\ExtendIssue;
  * @ORM\Entity
  * @ORM\HasLifecycleCallbacks()
  * @Config
+ *
+ * @SuppressWarnings(PHPMD.CouplingBetweenObjects)
  */
 class Issue extends ExtendIssue implements Taggable
 {
@@ -117,6 +119,23 @@ class Issue extends ExtendIssue implements Taggable
     private $tags;
 
     /**
+     * @ORM\PrePersist
+     */
+    public function initDateTimeFieldOnPrePersist()
+    {
+        $this->createdAt = new \DateTime();
+        $this->updatedAt = clone $this->createdAt;
+    }
+
+    /**
+     * @ORM\PreUpdate
+     */
+    public function updateUpdateAtOnPreUpdate()
+    {
+        $this->updatedAt = new \DateTime();
+    }
+
+    /**
      * Get id
      *
      * @return integer
@@ -175,20 +194,6 @@ class Issue extends ExtendIssue implements Taggable
     }
 
     /**
-     * Set createdAt
-     *
-     * @param \DateTime $createdAt
-     *
-     * @return Issue
-     */
-    public function setCreatedAt($createdAt)
-    {
-        $this->createdAt = $createdAt;
-
-        return $this;
-    }
-
-    /**
      * Get createdAt
      *
      * @return \DateTime
@@ -196,20 +201,6 @@ class Issue extends ExtendIssue implements Taggable
     public function getCreatedAt()
     {
         return $this->createdAt;
-    }
-
-    /**
-     * Set updatedAt
-     *
-     * @param \DateTime $updatedAt
-     *
-     * @return Issue
-     */
-    public function setUpdatedAt($updatedAt)
-    {
-        $this->updatedAt = $updatedAt;
-
-        return $this;
     }
 
     /**

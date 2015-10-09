@@ -4,6 +4,9 @@ namespace Luminaire\Bundle\IssueBundle\Tests\Unit\Entity;
 
 use Luminaire\Bundle\IssueBundle\Entity\IssuePriority;
 
+/**
+ * Class IssuePriorityTest
+ */
 class IssuePriorityTest extends EntityTestCase
 {
     /**
@@ -19,6 +22,9 @@ class IssuePriorityTest extends EntityTestCase
         $this->entity = new IssuePriority('test');
     }
 
+    /**
+     *
+     */
     public function testGetName()
     {
         $this->assertEquals('test', $this->entity->getName());
@@ -35,6 +41,9 @@ class IssuePriorityTest extends EntityTestCase
         $this->abstractTestGettersAndSetters($this->entity, $property, $value);
     }
 
+    /**
+     * @return array
+     */
     public function settersAndGettersDataProvider()
     {
         return [
