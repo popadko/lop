@@ -64,32 +64,78 @@ datagrid:
 #                route: inventory_api_delete_vehicle
 #                params:
 #                    - id
-#        sorters:
-#            columns:
-#                model:
-#                    data_name: v.model
-#                seats:
-#                    data_name: v.seats
-#                boughtAt:
-#                    data_name: v.boughtAt
-#                leasedUntil:
-#                    data_name: v.leasedUntil
-#            default:
-#                model: ASC
-#        filters:
-#            columns:
-#                model:
-#                    type: string
-#                    data_name: v.model
-#                seats:
-#                    type: number
-#                    data_name: v.seats
-#                boughtAt:
-#                    type: date
-#                    data_name: v.boughtAt
-#                leasedUntil:
-#                    type: date
-#                    data_name: v.leasedUntil
+        sorters:
+            columns:
+                code:
+                    data_name: issue.code
+                summary:
+                    data_name: issue.summary
+                typeLabel:
+                    data_name: issue.type
+                priorityLabel:
+                    data_name: priority.order
+                statusLabel:
+                    data_name: status.order
+                resolutionLabel:
+                    data_name: resolution
+                reporterName:
+                    data_name: reporter
+                assigneeName:
+                    data_name: issue.assignee
+                createdAt:
+                    data_name: issue.createdAt
+                updatedAt:
+                    data_name: issue.updatedAt
+            default:
+                updatedAt: DESC
+        filters:
+            columns:
+                code:
+                    type:      number
+                    data_name: issue.code
+                summary:
+                    type:      string
+                    data_name: issue.summary
+                typeLabel:
+                    type: entity
+                    data_name: issue.type
+                    options:
+                        field_options:
+                            class: LuminaireIssueBundle:IssueType
+                            property: label
+                priorityLabel:
+                    type: entity
+                    data_name: issue.priority
+                    options:
+                        field_options:
+                            class: LuminaireIssueBundle:IssuePriority
+                            property: label
+                statusLabel:
+                    type: entity
+                    data_name: issue.status
+                    options:
+                        field_options:
+                            class: LuminaireIssueBundle:IssueStatus
+                            property: label
+                resolutionLabel:
+                    type: entity
+                    data_name: issue.resolution
+                    options:
+                        field_options:
+                            class: LuminaireIssueBundle:IssueResolution
+                            property: label
+                reporterName:
+                    type:      string
+                    data_name: issue.reporter
+                assigneeName:
+                    type:      string
+                    data_name: issue.assignee
+                createdAt:
+                    type:      date
+                    data_name: issue.createdAt
+                updatedAt:
+                    type:      date
+                    data_name: issue.updatedAt
         actions:
             view:
                 type:          navigate
