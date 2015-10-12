@@ -21,7 +21,7 @@ framework:
     session:
         name:                 BAPID
         handler_id:           %session_handler%
-        save_path:            /tmp/sessions
+        save_path:            %kernel.root_dir%/cache/sessions
         gc_maxlifetime:       3600
         cookie_httponly:      true
     fragments:

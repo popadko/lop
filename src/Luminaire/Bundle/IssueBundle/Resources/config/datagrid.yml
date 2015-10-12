@@ -5,6 +5,7 @@ datagrid:
             type: orm
             query:
                 select:
+                    - issue.id
                     - issue.code
                     - issue.summary
                     - type.label as typeLabel
@@ -48,18 +49,16 @@ datagrid:
             updatedAt:
                 label: luminaire.issue.updated_at.label
                 frontend_type: date
-#        properties:
-#            id: ~
-#            update_link:
-#                type: url
-#                route: inventory.vehicle_update
-#                params:
-#                    - id
-#            view_link:
-#                type: url
-#                route: inventory.vehicle_view
-#                params:
-#                    - id
+        properties:
+            id: ~
+            update_link:
+                type: url
+                route: luminaire_issue_update
+                params: [ id ]
+            view_link:
+                type: url
+                route: luminaire_issue_show
+                params: [ id ]
 #            delete_link:
 #                type: url
 #                route: inventory_api_delete_vehicle
@@ -91,19 +90,19 @@ datagrid:
 #                leasedUntil:
 #                    type: date
 #                    data_name: v.leasedUntil
-#        actions:
-#            view:
-#                type:          navigate
-#                label:         View
-#                link:          view_link
-#                icon:          eye-open
+        actions:
+            view:
+                type:          navigate
+                label:         View
+                link:          view_link
+                icon:          eye-open
 #                acl_resource:  inventory.vehicle_view
-#                rowAction:     true
-#            update:
-#                type:          navigate
-#                label:         Update
-#                link:          update_link
-#                icon:          edit
+                rowAction:     true
+            update:
+                type:          navigate
+                label:         Update
+                link:          update_link
+                icon:          edit
 #                acl_resource:  inventory.vehicle_update
 #            delete:
 #                type:          delete

@@ -61,7 +61,10 @@ class IssueController extends Controller
                     'route'      => 'luminaire_issue_update',
                     'parameters' => ['id' => $entity->getId()],
                 ],
-                ['route' => 'luminaire_issue_show'],
+                [
+                    'route'      => 'luminaire_issue_show',
+                    'parameters' => ['id' => $entity->getId()],
+                ],
                 $entity
             );
         }

@@ -33,7 +33,7 @@
         'entity':      form.vars.value,
         'indexPath':   path('luminaire_issue_show', {'id': form.vars.value.id}),
         'indexLabel': 'luminaire.issue.entity_plural_label'|trans,
-        'entityTitle': form.vars.value.model
+        'entityTitle': form.vars.value.summary
         } %}
         {{ parent() }}
     {% else %}
