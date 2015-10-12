@@ -16,11 +16,14 @@ class LuminaireIssueBundle implements Migration
      */
     public function up(Schema $schema, QueryBag $queries)
     {
+        /** Tables generation **/
         $this->createLuminaireIssueTable($schema);
         $this->createLuminaireIssuePriorityTable($schema);
         $this->createLuminaireIssueResolutionTable($schema);
         $this->createLuminaireIssueStatusTable($schema);
         $this->createLuminaireIssueTypeTable($schema);
+
+        /** Foreign keys generation **/
         $this->addLuminaireIssueForeignKeys($schema);
     }
 
@@ -45,6 +48,7 @@ class LuminaireIssueBundle implements Migration
         $table->addColumn('updated_at', 'datetime', []);
         $table->addColumn('code', 'string', ['length' => 16]);
         $table->setPrimaryKey(['id']);
+        $table->addUniqueIndex(['code'], 'UNIQ_901BA05077153098');
         $table->addIndex(['type_name'], 'IDX_901BA050892CBB0E', []);
         $table->addIndex(['status_name'], 'IDX_901BA0506625D392', []);
         $table->addIndex(['priority_name'], 'IDX_901BA050965BD3DF', []);

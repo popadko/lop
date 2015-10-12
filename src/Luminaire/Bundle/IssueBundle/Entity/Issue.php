@@ -47,7 +47,7 @@ class Issue extends ExtendIssue implements Taggable
     /**
      * @var string
      *
-     * @ORM\Column(name="code", type="string", length=16)
+     * @ORM\Column(name="code", type="string", length=16, unique=true)
      */
     private $code;
 
