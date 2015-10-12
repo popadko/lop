@@ -78,6 +78,6 @@ class IssueController extends Controller
      */
     public function showAction(Issue $entity)
     {
-        return ['vehicle' => $entity];
+        return ['entity' => $entity];
     }
 }

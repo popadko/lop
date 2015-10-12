@@ -2,20 +2,20 @@
 {% import 'OroUIBundle::macros.html.twig' as UI %}
 
 {% block navButtons %}
-    {% if resource_granted('EDIT', issue) %}
+    {% if resource_granted('EDIT', entity) %}
         {{ UI.editButton({
-            'path' : path('luminaire_issue_update', { id: issue.id }),
+            'path' : path('luminaire_issue_update', { id: entity.id }),
             'entity_label': 'luminaire.issue.entity_label'|trans
         }) }}
     {% endif %}
 
-    {% if resource_granted('DELETE', issue) %}
+    {% if resource_granted('DELETE', entity) %}
         {#{{ UI.deleteButton({#}
-            {#'dataUrl': path('luminaire_api_delete_issue', {'id': issue.id}),#}
+            {#'dataUrl': path('luminaire_api_delete_entity', {'id': entity.id}),#}
             {#'dataRedirect': path('luminaire_issue'),#}
             {#'aCss': 'no-hash remove-button',#}
             {#'id': 'btn-remove-issue',#}
-            {#'dataId': issue.id,#}
+            {#'dataId': entity.id,#}
             {#'entity_label': 'luminaire.issue.entity_label'|trans,#}
         {#}) }}#}
     {% endif %}
@@ -23,10 +23,10 @@
 
 {% block pageHeader %}
     {% set breadcrumbs = {
-    'entity':      issue,
+    'entity':      entity,
     'indexPath':   path('luminaire_issue'),
     'indexLabel': 'luminaire.issue.entity_plural_label'|trans,
-    'entityTitle': issue.model
+    'entityTitle': entity.code
     } %}
     {{ parent() }}
 {% endblock pageHeader %}
@@ -36,17 +36,17 @@
         <div class="widget-content">
             <div class="row-fluid form-horizontal">
                 <div class="responsive-block">
-                    {{ UI.renderProperty('luminaire.issue.code.label'|trans, issue.code) }}
-                    {{ UI.renderProperty('luminaire.issue.summary.label'|trans, issue.summary) }}
-                    {{ UI.renderProperty('luminaire.issue.description.label'|trans, issue.description) }}
-                    {{ UI.renderProperty('luminaire.issue.type.label'|trans, issue.type) }}
-                    {{ UI.renderProperty('luminaire.issue.priority.label'|trans, issue.priority) }}
-                    {{ UI.renderProperty('luminaire.issue.status.label'|trans, issue.status) }}
-                    {{ UI.renderProperty('luminaire.issue.resolution.label'|trans, issue.resolution) }}
-                    {{ UI.renderProperty('luminaire.issue.reporter.label'|trans, issue.reporter) }}
-                    {{ UI.renderProperty('luminaire.issue.assignee.label'|trans, issue.assignee) }}
-                    {{ UI.renderProperty('luminaire.issue.created_at.label'|trans, issue.createdAt|date) }}
-                    {{ UI.renderProperty('luminaire.issue.updated_at.label'|trans, issue.updatedAt|date) }}
+                    {{ UI.renderProperty('luminaire.issue.code.label'|trans, entity.code) }}
+                    {{ UI.renderProperty('luminaire.issue.summary.label'|trans, entity.summary) }}
+                    {{ UI.renderProperty('luminaire.issue.description.label'|trans, entity.description) }}
+                    {{ UI.renderProperty('luminaire.issue.type.label'|trans, entity.type) }}
+                    {{ UI.renderProperty('luminaire.issue.priority.label'|trans, entity.priority) }}
+                    {{ UI.renderProperty('luminaire.issue.status.label'|trans, entity.status) }}
+                    {{ UI.renderProperty('luminaire.issue.resolution.label'|trans, entity.resolution) }}
+                    {{ UI.renderProperty('luminaire.issue.reporter.label'|trans, entity.reporter) }}
+                    {{ UI.renderProperty('luminaire.issue.assignee.label'|trans, entity.assignee) }}
+                    {{ UI.renderProperty('luminaire.issue.created_at.label'|trans, entity.createdAt|date) }}
+                    {{ UI.renderProperty('luminaire.issue.updated_at.label'|trans, entity.updatedAt|date) }}
                 </div>
             </div>
         </div>
