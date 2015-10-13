@@ -1,0 +1,32 @@
+oro_menu_config:
+    items:
+        luminaire_issue:
+            label: 'luminaire.issue.menu.index.label'
+            uri: '#'
+            extras:
+                position: 99
+        luminaire_issue_list:
+            label: 'luminaire.issue.menu.list.label'
+            route: 'luminaire_issue_index'
+            extras:
+                position: 5
+                routes: ['luminaire_issue_update', 'luminaire_issue_show']
+        luminaire_issue_create:
+            label: 'luminaire.issue.menu.create.label'
+            route: 'luminaire_issue_create'
+            extras:
+                position: 10
+    tree:
+        application_menu:
+            children:
+                luminaire_issue: ~
+                luminaire_issue:
+                    children:
+                        luminaire_issue_list: ~
+                        luminaire_issue_create: ~
+
+oro_titles:
+    luminaire_issue_index: ~
+    luminaire_issue_show: '%%entity.summary%%'
+    luminaire_issue_create: oro.ui.create_entity
+    luminaire_issue_update: '%%entity.summary%% - oro.ui.edit'

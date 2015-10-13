@@ -1,0 +1,3 @@
+Luminaire\Bundle\IssueBundle\Entity\Issue:
+    alias: luminaire_issue
+    search_template: LumainireIssueBundle:Issue:searchResult.html.twig

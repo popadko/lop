@@ -1,0 +1,26 @@
+parameters:
+    luminaire_issue.form.type.issue.class: Luminaire\Bundle\IssueBundle\Form\Type\IssueType
+    luminaire_issue.form.handler.issue.class: Luminaire\Bundle\IssueBundle\Form\Handler\IssueHandler
+
+services:
+    luminaire_issue.form.type.issue:
+        class: %luminaire_issue.form.type.issue.class%
+        tags:
+            - { name: form.type, alias: luminaire_issue }
+
+    luminaire_issue.form.issue:
+        class: Symfony\Component\Form\Form
+        factory_method: create
+        factory_service: form.factory
+        arguments:
+            - 'luminaire_issue'
+
+    luminaire_issue.form.handler.entity:
+        class: %luminaire_issue.form.handler.issue.class%
+        scope: request
+        arguments:
+            - @luminaire_issue.form.issue
+            - @request
+            - @doctrine.orm.entity_manager
+        tags:
+            - { name: oro_tag.tag_manager }

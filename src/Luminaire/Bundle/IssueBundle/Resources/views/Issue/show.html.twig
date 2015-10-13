@@ -1,5 +1,7 @@
 {% extends 'OroUIBundle:actions:view.html.twig' %}
 {% import 'OroUIBundle::macros.html.twig' as UI %}
+{% import 'OroTagBundle::macros.html.twig' as tag %}
+{% oro_title_set({params : {"%entity.summary%": entity.summary|default('N/A') }}) %}
 
 {% block navButtons %}
     {% if resource_granted('EDIT', entity) %}
@@ -24,7 +26,7 @@
 {% block pageHeader %}
     {% set breadcrumbs = {
     'entity':      entity,
-    'indexPath':   path('luminaire_issue'),
+    'indexPath':   path('luminaire_issue_index'),
     'indexLabel': 'luminaire.issue.entity_plural_label'|trans,
     'entityTitle': entity.summary
     } %}
@@ -47,6 +49,9 @@
                     {{ UI.renderProperty('luminaire.issue.assignee.label'|trans, entity.assignee) }}
                     {{ UI.renderProperty('luminaire.issue.created_at.label'|trans, entity.createdAt|date) }}
                     {{ UI.renderProperty('luminaire.issue.updated_at.label'|trans, entity.updatedAt|date) }}
+                    {% if resource_granted('oro_tag_view') %}
+                        {{ UI.renderHtmlProperty('oro.tag.entity_plural_label'|trans, tag.renderView(entity)) }}
+                    {% endif %}
                 </div>
             </div>
         </div>

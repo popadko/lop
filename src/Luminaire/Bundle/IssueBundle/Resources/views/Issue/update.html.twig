@@ -1,5 +1,6 @@
 {% extends 'OroUIBundle:actions:update.html.twig' %}
-{% form_theme form with 'OroFormBundle:Form:fields.html.twig' %}
+{% form_theme form with ['OroTagBundle:Form:fields.html.twig'] %}
+{% oro_title_set({params : {"%entity.summary%": entity.summary|default('N/A') }}) %}
 
 {% if form.vars.value.id %}
     {% set formAction = path('luminaire_issue_update', { 'id': form.vars.value.id }) %}
@@ -19,7 +20,7 @@
         {#}) }}#}
         {{ UI.buttonSeparator() }}
     {% endif %}
-    {{ UI.cancelButton(path('luminaire_issue')) }}
+    {{ UI.cancelButton(path('luminaire_issue_index')) }}
     {% set html = UI.saveAndCloseButton() %}
     {% if resource_granted('luminaire_issue_edit') %}
         {% set html = html ~ UI.saveAndStayButton() %}
@@ -60,6 +61,7 @@
                 form_row(form.resolution),
                 form_row(form.reporter),
                 form_row(form.assignee),
+                form_row(form.tags),
             ]
         }]
     }] %}

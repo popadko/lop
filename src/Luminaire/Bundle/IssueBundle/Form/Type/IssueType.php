@@ -11,6 +11,8 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
  */
 class IssueType extends AbstractType
 {
+    const NAME = 'luminaire_issue';
+
     /**
      * @inheritDoc
      */
@@ -29,7 +31,14 @@ class IssueType extends AbstractType
             ])
             ->add('assignee', null, [
                 'label' => 'luminaire.issue.assignee.label'
-            ]);
+            ])
+            ->add(
+                'tags',
+                'oro_tag_select',
+                array(
+                    'label' => 'oro.tag.entity_plural_label'
+                )
+            );
     }
 
     /**
@@ -47,6 +56,6 @@ class IssueType extends AbstractType
      */
     public function getName()
     {
-        return 'luminaire_issue';
+        return self::NAME;
     }
 }

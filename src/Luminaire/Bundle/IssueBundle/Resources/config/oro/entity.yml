@@ -1,0 +1,5 @@
+oro_entity:
+    entity_aliases:
+        Luminaire\Bundle\IssueBundle\Entity\Issue:
+            alias:        issue
+            plural_alias: issues

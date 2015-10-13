@@ -50,3 +50,11 @@ luminaire:
 
         block:
             general: General Information
+
+        menu:
+            index.label: Issues
+            list.label: Issue List
+            create.label: Create Issue
+
+        controller:
+            issue.saved.message: Issue has been saved
