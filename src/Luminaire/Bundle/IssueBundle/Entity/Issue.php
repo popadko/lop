@@ -459,7 +459,9 @@ class Issue extends ExtendIssue implements Taggable
      */
     public function addCollaborator(\Oro\Bundle\UserBundle\Entity\User $collaborator)
     {
-        $this->collaborators[] = $collaborator;
+        if (!$this->collaborators->contains($collaborator)) {
+            $this->collaborators[] = $collaborator;
+        }
 
         return $this;
     }

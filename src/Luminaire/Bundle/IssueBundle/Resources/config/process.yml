@@ -1,0 +1,24 @@
+definitions:
+    issue_definition:
+        label: Update issue collaborators
+        enabled: true
+        entity: Luminaire\Bundle\IssueBundle\Entity\Issue
+        order: 20
+        exclude_definitions: [issue_definition]
+        actions_configuration:
+            - @call_method:
+                conditions:
+                    @not_empty: $assignee
+                object: $.data
+                method: addCollaborator
+                method_parameters: [$assignee]
+            - @call_method:
+                object: $.data
+                method: addCollaborator
+                method_parameters: [$reporter]
+triggers:
+    issue_definition:
+        -
+            event: create
+        -
+            event: update
