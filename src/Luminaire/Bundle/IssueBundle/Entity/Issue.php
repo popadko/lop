@@ -136,6 +136,14 @@ class Issue extends ExtendIssue implements Taggable
     }
 
     /**
+     * @return string
+     */
+    public function __toString()
+    {
+        return $this->code;
+    }
+
+    /**
      * Get id
      *
      * @return integer
