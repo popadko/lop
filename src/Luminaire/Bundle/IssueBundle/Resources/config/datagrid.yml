@@ -59,11 +59,10 @@ datagrid:
                 type: url
                 route: luminaire_issue_show
                 params: [ id ]
-#            delete_link:
-#                type: url
-#                route: inventory_api_delete_vehicle
-#                params:
-#                    - id
+            delete_link:
+                type: url
+                route: luminaire_api_delete_issue
+                params: [ id ]
         sorters:
             columns:
                 code:
@@ -150,9 +149,9 @@ datagrid:
                 link:          update_link
                 icon:          edit
 #                acl_resource:  inventory.vehicle_update
-#            delete:
-#                type:          delete
-#                label:         Delete
-#                link:          delete_link
-#                icon:          trash
+            delete:
+                type:          delete
+                label:         Delete
+                link:          delete_link
+                icon:          trash
 #                acl_resource:  inventory.vehicle_delete

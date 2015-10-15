@@ -12,14 +12,14 @@
     {% endif %}
 
     {% if resource_granted('DELETE', entity) %}
-        {#{{ UI.deleteButton({#}
-            {#'dataUrl': path('luminaire_api_delete_entity', {'id': entity.id}),#}
-            {#'dataRedirect': path('luminaire_issue'),#}
-            {#'aCss': 'no-hash remove-button',#}
-            {#'id': 'btn-remove-issue',#}
-            {#'dataId': entity.id,#}
-            {#'entity_label': 'luminaire.issue.entity_label'|trans,#}
-        {#}) }}#}
+        {{ UI.deleteButton({
+            'dataUrl': path('luminaire_api_delete_issue', {'id': entity.id}),
+            'dataRedirect': path('luminaire_issue_index'),
+            'aCss': 'no-hash remove-button',
+            'id': 'btn-remove-issue',
+            'dataId': entity.id,
+            'entity_label': 'luminaire.issue.entity_label'|trans,
+        }) }}
     {% endif %}
 {% endblock navButtons %}
 
