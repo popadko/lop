@@ -5,12 +5,27 @@ namespace Luminaire\Bundle\IssueBundle\Migrations\Schema\v1_0;
 use Doctrine\DBAL\Schema\Schema;
 use Oro\Bundle\MigrationBundle\Migration\Migration;
 use Oro\Bundle\MigrationBundle\Migration\QueryBag;
+use Oro\Bundle\NoteBundle\Migration\Extension\NoteExtension;
+use Oro\Bundle\NoteBundle\Migration\Extension\NoteExtensionAwareInterface;
 
 /**
  * Class LuminaireIssueBundle
  */
-class LuminaireIssueBundle implements Migration
+class LuminaireIssueBundle implements Migration, NoteExtensionAwareInterface
 {
+    /**
+     * @var NoteExtension
+     */
+    protected $noteExtension;
+
+    /**
+     * @inheritDoc
+     */
+    public function setNoteExtension(NoteExtension $noteExtension)
+    {
+        $this->noteExtension = $noteExtension;
+    }
+
     /**
      * @inheritDoc
      */
@@ -55,6 +70,8 @@ class LuminaireIssueBundle implements Migration
         $table->addIndex(['resolution_name'], 'IDX_901BA0508EEEA2E1', []);
         $table->addIndex(['reporter_id'], 'IDX_901BA050E1CFE6F5', []);
         $table->addIndex(['assignee_id'], 'IDX_901BA05059EC7D60', []);
+
+        $this->noteExtension->addNoteAssociation($schema, $table->getName());
     }
 
     /**

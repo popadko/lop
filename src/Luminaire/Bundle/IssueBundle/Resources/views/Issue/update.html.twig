@@ -1,6 +1,6 @@
 {% extends 'OroUIBundle:actions:update.html.twig' %}
 {% form_theme form with ['OroTagBundle:Form:fields.html.twig'] %}
-{% oro_title_set({params : {"%entity.summary%": entity.summary|default('N/A') }}) %}
+{% oro_title_set({params : {"%entityName%": entity.summary|default('N/A') }}) %}
 
 {% if form.vars.value.id %}
     {% set formAction = path('luminaire_issue_update', { 'id': form.vars.value.id }) %}
