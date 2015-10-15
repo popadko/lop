@@ -37,9 +37,11 @@ class LuminaireIssueBundle implements Migration, NoteExtensionAwareInterface
         $this->createLuminaireIssueResolutionTable($schema);
         $this->createLuminaireIssueStatusTable($schema);
         $this->createLuminaireIssueTypeTable($schema);
+        $this->createLuminaireUserToIssueTable($schema);
 
         /** Foreign keys generation **/
         $this->addLuminaireIssueForeignKeys($schema);
+        $this->addLuminaireUserToIssueForeignKeys($schema);
     }
 
     /**
@@ -131,6 +133,21 @@ class LuminaireIssueBundle implements Migration, NoteExtensionAwareInterface
     }
 
     /**
+     * Create luminaire_user_to_issue table
+     *
+     * @param Schema $schema
+     */
+    protected function createLuminaireUserToIssueTable(Schema $schema)
+    {
+        $table = $schema->createTable('luminaire_user_to_issue');
+        $table->addColumn('issue_id', 'integer', []);
+        $table->addColumn('user_id', 'integer', []);
+        $table->setPrimaryKey(['issue_id', 'user_id']);
+        $table->addIndex(['issue_id'], 'IDX_8236A7725E7AA58C', []);
+        $table->addIndex(['user_id'], 'IDX_8236A772A76ED395', []);
+    }
+
+    /**
      * Add luminaire_issue foreign keys.
      *
      * @param Schema $schema
@@ -173,6 +190,28 @@ class LuminaireIssueBundle implements Migration, NoteExtensionAwareInterface
             ['type_name'],
             ['name'],
             ['onDelete' => null, 'onUpdate' => null]
+        );
+    }
+
+    /**
+     * Add luminaire_user_to_issue foreign keys.
+     *
+     * @param Schema $schema
+     */
+    protected function addLuminaireUserToIssueForeignKeys(Schema $schema)
+    {
+        $table = $schema->getTable('luminaire_user_to_issue');
+        $table->addForeignKeyConstraint(
+            $schema->getTable('oro_user'),
+            ['user_id'],
+            ['id'],
+            ['onDelete' => 'CASCADE', 'onUpdate' => null]
+        );
+        $table->addForeignKeyConstraint(
+            $schema->getTable('luminaire_issue'),
+            ['issue_id'],
+            ['id'],
+            ['onDelete' => 'CASCADE', 'onUpdate' => null]
         );
     }
 }

@@ -6,6 +6,7 @@ use Doctrine\Common\Persistence\ObjectManager;
 use Luminaire\Bundle\IssueBundle\Entity\Issue;
 use Oro\Bundle\TagBundle\Entity\TagManager;
 use Oro\Bundle\TagBundle\Form\Handler\TagHandlerInterface;
+use Oro\Bundle\UserBundle\Entity\User;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\HttpFoundation\Request;
 
@@ -53,6 +54,8 @@ class IssueHandler implements TagHandlerInterface
         if ($this->request->isMethod('POST')) {
             $this->form->submit($this->request);
             if ($this->form->isValid()) {
+                $this->appendCollaborators($entity, $this->form->get('appendCollaborators')->getData());
+                $this->removeCollaborators($entity, $this->form->get('removeCollaborators')->getData());
                 $this->manager->persist($entity);
                 $this->manager->flush();
 
@@ -65,5 +68,31 @@ class IssueHandler implements TagHandlerInterface
         }
 
         return false;
+    }
+
+    /**
+     * Append collaborators to issue
+     *
+     * @param Issue $entity
+     * @param User[] $users
+     */
+    protected function appendCollaborators(Issue $entity, array $users)
+    {
+        foreach ($users as $user) {
+            $entity->addCollaborator($user);
+        }
+    }
+
+    /**
+     * Remove collaborators from issue
+     *
+     * @param Issue $entity
+     * @param User[] $users
+     */
+    protected function removeCollaborators(Issue $entity, array $users)
+    {
+        foreach ($users as $user) {
+            $entity->removeCollaborator($user);
+        }
     }
 }

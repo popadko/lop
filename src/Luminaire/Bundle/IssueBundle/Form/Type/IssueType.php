@@ -35,10 +35,31 @@ class IssueType extends AbstractType
             ->add(
                 'tags',
                 'oro_tag_select',
-                array(
+                [
                     'label' => 'oro.tag.entity_plural_label'
-                )
+                ]
             );
+
+        $builder->add(
+            'appendCollaborators',
+            'oro_entity_identifier',
+            [
+                'class'    => 'OroUserBundle:User',
+                'required' => false,
+                'mapped'   => false,
+                'multiple' => true,
+            ]
+        );
+        $builder->add(
+            'removeCollaborators',
+            'oro_entity_identifier',
+            [
+                'class'    => 'OroUserBundle:User',
+                'required' => false,
+                'mapped'   => false,
+                'multiple' => true,
+            ]
+        );
     }
 
     /**

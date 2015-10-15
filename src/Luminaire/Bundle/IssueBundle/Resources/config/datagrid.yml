@@ -86,7 +86,7 @@ datagrid:
                 updatedAt:
                     data_name: issue.updatedAt
             default:
-                updatedAt: DESC
+                updatedAt: %oro_datagrid.extension.orm_sorter.class%::DIRECTION_DESC
         filters:
             columns:
                 code:
@@ -155,3 +155,55 @@ datagrid:
                 link:          delete_link
                 icon:          trash
 #                acl_resource:  inventory.vehicle_delete
+
+    issue-collaborators-update-grid:
+        source:
+            type: orm
+#            acl_resource: orocrm_contact_view
+            query:
+                select:
+                    - user.id
+                    - user.username
+                    - >
+                      CASE WHEN (user IN (:collaborators) or (user.id IN (:data_in) AND user.id NOT IN (:data_not_in)))
+                       THEN true ELSE false END as isCollaborator
+                from:
+                    - { table: OroUserBundle:User, alias: user }
+            bind_parameters:
+                - collaborators
+        columns:
+            isCollaborator:
+                label:         luminaire.issue.collaborators.label
+                frontend_type: boolean
+                editable:      true
+            username:
+                label:         oro.user.username.label
+        sorters:
+            columns:
+                username: { data_name: user.username }
+            default: { username: %oro_datagrid.extension.orm_sorter.class%::DIRECTION_ASC }
+        filters:
+            columns:
+                username:
+                    data_name: user.username
+                    type:      string
+        properties:
+            id: ~
+        options:
+            entityHint: user
+            rowSelection:
+                dataField: id
+                columnName: isCollaborator
+                selectors:
+                    included: '#appendCollaborators'
+                    excluded: '#removeCollaborators'
+
+    issue-collaborators-grid:
+        extends: users-grid
+        source:
+            query:
+                where:
+                    and:
+                        - (u in (:collaborators))
+            bind_parameters:
+                - collaborators

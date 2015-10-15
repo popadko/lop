@@ -13,7 +13,7 @@ luminaire:
         resolution.label: Resolution
         priority.label: Priority
         reporter.label: Reporter
-        notes.label: Notes
+        collaborators.label: Collaborators
         created_at.label: Created on
         updated_at.label: Updated on
 

@@ -1,6 +1,10 @@
 {% extends 'OroUIBundle:actions:update.html.twig' %}
+{% import 'OroDataGridBundle::macros.html.twig' as dataGrid %}
 {% form_theme form with ['OroTagBundle:Form:fields.html.twig'] %}
-{% oro_title_set({params : {"%entityName%": entity.summary|default('N/A') }}) %}
+{% oro_title_set({params : {
+    "%entityName%": 'luminaire.issue.entity_label'|trans,
+    "%entity.summary%": entity.summary|default('N/A'),
+}}) %}
 
 {% if form.vars.value.id %}
     {% set formAction = path('luminaire_issue_update', { 'id': form.vars.value.id }) %}
@@ -65,6 +69,20 @@
             ]
         }]
     }] %}
+
+    {% set dataBlocks = dataBlocks|merge([{
+        'title' : 'luminaire.issue.collaborators.label'|trans,
+        'subblocks': [{
+            'title' : null,
+            'useSpan': false,
+            'data' : [
+                form_widget(form.appendCollaborators, {'id': 'appendCollaborators'}),
+                form_widget(form.removeCollaborators, {'id': 'removeCollaborators'}),
+                dataGrid.renderGrid('issue-collaborators-update-grid', {collaborators: form.vars.value.collaborators}, { cssClass: 'inner-grid' })
+            ]
+        }]
+    }]) %}
+
     {% set data = {
         'formErrors': form_errors(form)? form_errors(form) : null,
         'dataBlocks': dataBlocks,

@@ -3,6 +3,7 @@
 namespace Luminaire\Bundle\IssueBundle\Entity;
 
 use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Oro\Bundle\TagBundle\Entity\Taggable;
 use Oro\Bundle\UserBundle\Entity\User;
@@ -114,9 +115,17 @@ class Issue extends ExtendIssue implements Taggable
     private $updatedAt;
 
     /**
-     * @var ArrayCollection $tags
+     * @var Collection $tags
      */
     private $tags;
+
+    /**
+     * @var Collection
+     *
+     * @ORM\ManyToMany(targetEntity="Oro\Bundle\UserBundle\Entity\User")
+     * @ORM\JoinTable(name="luminaire_user_to_issue")
+     */
+    protected $collaborators;
 
     /**
      * @ORM\PrePersist
@@ -415,5 +424,63 @@ class Issue extends ExtendIssue implements Taggable
         $this->tags = $tags;
 
         return $this;
+    }
+
+    /**
+     * Set createdAt
+     *
+     * @param \DateTime $createdAt
+     *
+     * @return Issue
+     */
+    public function setCreatedAt($createdAt)
+    {
+        throw new \LogicException('This method should not be called');
+    }
+
+    /**
+     * Set updatedAt
+     *
+     * @param \DateTime $updatedAt
+     *
+     * @return Issue
+     */
+    public function setUpdatedAt($updatedAt)
+    {
+        throw new \LogicException('This method should not be called');
+    }
+
+    /**
+     * Add collaborator
+     *
+     * @param \Oro\Bundle\UserBundle\Entity\User $collaborator
+     *
+     * @return Issue
+     */
+    public function addCollaborator(\Oro\Bundle\UserBundle\Entity\User $collaborator)
+    {
+        $this->collaborators[] = $collaborator;
+
+        return $this;
+    }
+
+    /**
+     * Remove collaborator
+     *
+     * @param \Oro\Bundle\UserBundle\Entity\User $collaborator
+     */
+    public function removeCollaborator(\Oro\Bundle\UserBundle\Entity\User $collaborator)
+    {
+        $this->collaborators->removeElement($collaborator);
+    }
+
+    /**
+     * Get collaborators
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getCollaborators()
+    {
+        return $this->collaborators;
     }
 }

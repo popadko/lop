@@ -1,6 +1,7 @@
 {% extends 'OroUIBundle:actions:view.html.twig' %}
 {% import 'OroUIBundle::macros.html.twig' as UI %}
 {% import 'OroTagBundle::macros.html.twig' as tag %}
+{% import 'OroDataGridBundle::macros.html.twig' as dataGrid %}
 {% oro_title_set({params : {"%entity.summary%": entity.summary|default('N/A') }}) %}
 
 {% block navButtons %}
@@ -63,6 +64,16 @@
             { 'data' : [data] }
         ]
     }] %}
+    {% set dataBlocks = dataBlocks|merge([{
+        'title' : 'luminaire.issue.collaborators.label'|trans,
+        'subblocks': [{
+            'title' : null,
+            'useSpan': false,
+            'data' : [
+                dataGrid.renderGrid('issue-collaborators-grid', {collaborators: entity.collaborators}, { cssClass: 'inner-grid' })
+            ]
+        }]
+    }]) %}
 
     {% set id = 'issueView' %}
     {% set data = { 'dataBlocks': dataBlocks } %}
