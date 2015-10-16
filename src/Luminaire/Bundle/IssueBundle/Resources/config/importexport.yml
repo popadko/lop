@@ -1,0 +1,19 @@
+parameters:
+    luminaire_issue.importexport.normalizer.issue.class: Luminaire\Bundle\IssueBundle\ImportExport\Serializer\Normalizer\IssueNormalizer
+
+services:
+    luminaire_issue.importexport.normalizer.issue:
+        class: %luminaire_issue.importexport.normalizer.issue.class%
+        parent: oro_importexport.serializer.configurable_entity_normalizer
+        tags:
+            - { name: oro_importexport.normalizer }
+
+    luminaire_issue.importexport.data_converter.issue:
+            parent: oro_importexport.data_converter.configurable
+
+    luminaire_issue.importexport.processor.export_issue:
+        parent: oro_importexport.processor.export_abstract
+        calls:
+             - [setDataConverter, [@luminaire_issue.importexport.data_converter.issue]]
+        tags:
+            - { name: oro_importexport.processor, type: export, entity: %luminaire_issue.entity.issue.class%, alias: luminaire_issue }
