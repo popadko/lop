@@ -16,9 +16,39 @@ definitions:
                 object: $.data
                 method: addCollaborator
                 method_parameters: [$reporter]
+
+    issue_notes_definition:
+        label: Update issue notes
+        enabled: true
+        entity: Oro\Bundle\NoteBundle\Entity\Note
+        order: 20
+        exclude_definitions: [issue_notes_definition]
+        actions_configuration:
+            - @tree:
+                conditions:
+                    @note_target:
+                        note: $.data
+                        targetClass: Luminaire\Bundle\IssueBundle\Entity\Issue
+                actions:
+                    - @call_method:
+                        object: $target
+                        method: addCollaborator
+                        method_parameters: [$owner]
+                    - @call_method:
+                        object: $target
+                        method: addCollaborator
+                        method_parameters: [$updatedBy]
+
 triggers:
     issue_definition:
         -
             event: create
         -
             event: update
+
+    issue_notes_definition:
+        -
+            event: create
+        -
+            event: update
+

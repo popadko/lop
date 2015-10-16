@@ -145,6 +145,14 @@ class Issue extends ExtendIssue implements Taggable
     }
 
     /**
+     * @inheritDoc
+     */
+    public function __construct()
+    {
+        $this->collaborators = new ArrayCollection();
+    }
+
+    /**
      * @return string
      */
     public function __toString()

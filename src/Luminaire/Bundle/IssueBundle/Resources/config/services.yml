@@ -1,4 +1,5 @@
 parameters:
+    luminaire_issue.condition.note_target.class: Luminaire\Bundle\IssueBundle\ConfigExpression\Condition\NoteTarget
     luminaire_issue.entity.issue.class: Luminaire\Bundle\IssueBundle\Entity\Issue
     luminaire_issue.issue.manager.api.class: Oro\Bundle\SoapBundle\Entity\Manager\ApiEntityManager
 
@@ -9,3 +10,8 @@ services:
         arguments:
             - %luminaire_issue.entity.issue.class%
             - @doctrine.orm.entity_manager
+
+    luminaire_issue.condition.note_target:
+        class: %luminaire_issue.condition.note_target.class%
+        tags:
+            - { name: oro_workflow.condition, alias: note_target }
