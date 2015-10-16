@@ -7,6 +7,8 @@
     {% include 'OroImportExportBundle:ImportExport:buttons.html.twig' with {
         entity_class: entity_class,
         exportProcessor: 'luminaire_issue',
+        importProcessor: 'luminaire_issue.add_or_replace',
+        importTitle: 'luminaire.issue.import'|trans,
         dataGridName: gridName
     } %}
 

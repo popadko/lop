@@ -2,18 +2,34 @@ parameters:
     luminaire_issue.importexport.normalizer.issue.class: Luminaire\Bundle\IssueBundle\ImportExport\Serializer\Normalizer\IssueNormalizer
 
 services:
+    # normilizers
     luminaire_issue.importexport.normalizer.issue:
         class: %luminaire_issue.importexport.normalizer.issue.class%
         parent: oro_importexport.serializer.configurable_entity_normalizer
         tags:
             - { name: oro_importexport.normalizer }
 
+    # data converters
     luminaire_issue.importexport.data_converter.issue:
             parent: oro_importexport.data_converter.configurable
 
+    # strategies
+    luminaire_issue.importexport.strategy.issue.add_or_replace:
+        parent: oro_importexport.strategy.configurable_add_or_replace
+
+    # processors
     luminaire_issue.importexport.processor.export_issue:
         parent: oro_importexport.processor.export_abstract
         calls:
              - [setDataConverter, [@luminaire_issue.importexport.data_converter.issue]]
         tags:
             - { name: oro_importexport.processor, type: export, entity: %luminaire_issue.entity.issue.class%, alias: luminaire_issue }
+
+    luminaire_issue.importexport.processor.import_issue:
+        parent: oro_importexport.processor.import_abstract
+        calls:
+             - [setDataConverter, [@luminaire_issue.importexport.data_converter.issue]]
+             - [setStrategy, [@luminaire_issue.importexport.strategy.issue.add_or_replace]]
+        tags:
+            - { name: oro_importexport.processor, type: import, entity: %luminaire_issue.entity.issue.class%, alias: luminaire_issue.add_or_replace }
+            - { name: oro_importexport.processor, type: import_validation, entity: %luminaire_issue.entity.issue.class%, alias: luminaire_issue.add_or_replace }
