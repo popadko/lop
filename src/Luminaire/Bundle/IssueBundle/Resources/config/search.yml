@@ -1,3 +1,83 @@
 Luminaire\Bundle\IssueBundle\Entity\Issue:
     alias: luminaire_issue
-    search_template: LumainireIssueBundle:Issue:searchResult.html.twig
+    search_template: LuminaireIssueBundle:Issue:searchResult.html.twig
+    label: Search issue label
+    route:
+        name: luminaire_issue_show
+        parameters:
+            id: id
+    title_fields: [summary]
+    fields:
+        -
+            name: code
+            target_type: text
+            target_fields: [code]
+        -
+            name: summary
+            target_type: text
+            target_fields: [summary]
+        -
+            name: description
+            target_type: text
+            target_fields: [description]
+        -
+            name: type
+            relation_type: many-to-one
+
+            relation_fields:
+                -
+                    name: label
+                    target_type: text
+                    target_fields: [type]
+        -
+            name: priority
+            relation_type: many-to-one
+
+            relation_fields:
+                -
+                    name: label
+                    target_type: text
+                    target_fields: [priority]
+        -
+            name: status
+            relation_type: many-to-one
+
+            relation_fields:
+                -
+                    name: label
+                    target_type: text
+                    target_fields: [status]
+        -
+            name: reporter
+            relation_type: many-to-one
+
+            relation_fields:
+                -
+                    name: username
+                    target_type: text
+                    target_fields: [reporter]
+                -
+                    name: firstName
+                    target_type: text
+                    target_fields: [reporter]
+                -
+                    name: secondName
+                    target_type: text
+                    target_fields: [reporter]
+        -
+            name: assignee
+            relation_type: many-to-one
+
+            relation_fields:
+                -
+                    name: username
+                    target_type: text
+                    target_fields: [assignee]
+                -
+                    name: firstName
+                    target_type: text
+                    target_fields: [assignee]
+                -
+                    name: secondName
+                    target_type: text
+                    target_fields: [assignee]
