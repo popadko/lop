@@ -2,6 +2,11 @@ luminaire_issue_bundle:
     resource: "@LuminaireIssueBundle/Controller/IssueController.php"
     type: annotation
 
+luminaire_issue_dashboard:
+    resource:     "@LuminaireIssueBundle/Controller/Dashboard"
+    type:         annotation
+    prefix:       /dashboard
+
 luminaire_bundle_api:
     resource:     "@LuminaireIssueBundle/Resources/config/oro/routing_api.yml"
     prefix:       api/rest/{version}/

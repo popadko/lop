@@ -1,0 +1,7 @@
+oro_dashboard_config:
+    widgets:
+        issues_by_status:
+            label:       luminaire.issue.dashboard.issues_by_status_chart.title
+            route:       luminaire_issue_issues_by_status_chart
+#            acl:         luminaire_issue_view
+            description: luminaire.issue.dashboard.issues_by_status_chart.description

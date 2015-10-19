@@ -14,7 +14,7 @@ use Luminaire\Bundle\IssueBundle\Model\ExtendIssue;
  * Issue
  *
  * @ORM\Table(name="luminaire_issue")
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="Luminaire\Bundle\IssueBundle\Entity\Repository\IssueRepository")
  * @ORM\HasLifecycleCallbacks()
  * @Config
  *

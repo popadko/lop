@@ -61,3 +61,8 @@ luminaire:
             issue.saved.message: Issue has been saved
 
         import: Import Issues
+
+        dashboard:
+            issues_by_status_chart:
+                title:       Issues by status
+                description: This widget displays a breakdown of issues by status in form of a bar chart.
