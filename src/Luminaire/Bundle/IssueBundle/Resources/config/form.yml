@@ -5,6 +5,8 @@ parameters:
 services:
     luminaire_issue.form.type.issue:
         class: %luminaire_issue.form.type.issue.class%
+        arguments:
+            - @doctrine
         tags:
             - { name: form.type, alias: luminaire_issue }
 

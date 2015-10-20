@@ -19,6 +19,7 @@ use Luminaire\Bundle\IssueBundle\Model\ExtendIssue;
  * @Config
  *
  * @SuppressWarnings(PHPMD.CouplingBetweenObjects)
+ * @SuppressWarnings(PHPMD.TooManyFields)
  */
 class Issue extends ExtendIssue implements Taggable
 {
@@ -128,6 +129,21 @@ class Issue extends ExtendIssue implements Taggable
     protected $collaborators;
 
     /**
+     * @var \Luminaire\Bundle\IssueBundle\Entity\Issue
+     *
+     * @ORM\ManyToOne(targetEntity="Luminaire\Bundle\IssueBundle\Entity\Issue", inversedBy="children")
+     * @ORM\JoinColumn(name="parent_id", referencedColumnName="id")
+     **/
+    private $parent;
+
+    /**
+     * @var \Doctrine\Common\Collections\Collection
+     *
+     * @ORM\OneToMany(targetEntity="Luminaire\Bundle\IssueBundle\Entity\Issue", mappedBy="parent")
+     **/
+    private $children;
+
+    /**
      * @ORM\PrePersist
      */
     public function initDateTimeFieldOnPrePersist()
@@ -150,6 +166,7 @@ class Issue extends ExtendIssue implements Taggable
     public function __construct()
     {
         $this->collaborators = new ArrayCollection();
+        $this->children      = new ArrayCollection();
     }
 
     /**
@@ -441,7 +458,7 @@ class Issue extends ExtendIssue implements Taggable
      *
      * @return Issue
      */
-    public function setCreatedAt($createdAt)
+    public function setCreatedAt()
     {
         throw new \LogicException('This method should not be called');
     }
@@ -453,7 +470,7 @@ class Issue extends ExtendIssue implements Taggable
      *
      * @return Issue
      */
-    public function setUpdatedAt($updatedAt)
+    public function setUpdatedAt()
     {
         throw new \LogicException('This method should not be called');
     }
@@ -492,5 +509,63 @@ class Issue extends ExtendIssue implements Taggable
     public function getCollaborators()
     {
         return $this->collaborators;
+    }
+
+    /**
+     * Set parent
+     *
+     * @param \Luminaire\Bundle\IssueBundle\Entity\Issue $parent
+     *
+     * @return Issue
+     */
+    public function setParent(\Luminaire\Bundle\IssueBundle\Entity\Issue $parent = null)
+    {
+        $this->parent = $parent;
+
+        return $this;
+    }
+
+    /**
+     * Get parent
+     *
+     * @return \Luminaire\Bundle\IssueBundle\Entity\Issue
+     */
+    public function getParent()
+    {
+        return $this->parent;
+    }
+
+    /**
+     * Add child
+     *
+     * @param \Luminaire\Bundle\IssueBundle\Entity\Issue $child
+     *
+     * @return Issue
+     */
+    public function addChild(\Luminaire\Bundle\IssueBundle\Entity\Issue $child)
+    {
+        $this->children[] = $child;
+
+        return $this;
+    }
+
+    /**
+     * Remove child
+     *
+     * @param \Luminaire\Bundle\IssueBundle\Entity\Issue $child
+     */
+    public function removeChild(\Luminaire\Bundle\IssueBundle\Entity\Issue $child)
+    {
+        $this->children->removeElement($child);
+    }
+
+    /**
+     * Get children
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getChildren()
+    {
+        return $this->children;
     }
 }

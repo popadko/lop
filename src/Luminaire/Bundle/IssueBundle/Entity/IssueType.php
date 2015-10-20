@@ -122,4 +122,20 @@ class IssueType
     {
         return $this->label;
     }
+
+    /**
+     * @return bool
+     */
+    public function isStory()
+    {
+        return $this->getName() === self::TYPE_STORY;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isSubtask()
+    {
+        return $this->getName() === self::TYPE_SUBTASK;
+    }
 }

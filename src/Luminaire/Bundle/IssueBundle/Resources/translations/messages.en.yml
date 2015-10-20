@@ -13,6 +13,8 @@ luminaire:
         resolution.label: Resolution
         priority.label: Priority
         reporter.label: Reporter
+        parent.label: Parent
+        children.label: Subtasks
         collaborators.label: Collaborators
         created_at.label: Created on
         updated_at.label: Updated on
@@ -40,6 +42,7 @@ luminaire:
             name.label: Name
             order.label: Order
             label.label: Label
+            subtask.label: Subtask
 
         issuetype:
             entity_label: Issue type

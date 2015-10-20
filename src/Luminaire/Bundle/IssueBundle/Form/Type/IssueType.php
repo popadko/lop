@@ -5,13 +5,32 @@ namespace Luminaire\Bundle\IssueBundle\Form\Type;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Doctrine\Common\Persistence\ManagerRegistry;
+use Luminaire\Bundle\IssueBundle\Entity\Repository\IssueRepository;
+use Luminaire\Bundle\IssueBundle\Entity\IssueType as IssueTypeEntity;
 
 /**
  * Class IssueType
  */
 class IssueType extends AbstractType
 {
+    /**
+     *
+     */
     const NAME = 'luminaire_issue';
+
+    /**
+     * @var
+     */
+    private $doctrine;
+
+    /**
+     * @param ManagerRegistry $doctrine
+     */
+    public function __construct(ManagerRegistry $doctrine)
+    {
+        $this->doctrine = $doctrine;
+    }
 
     /**
      * @inheritDoc
@@ -31,6 +50,14 @@ class IssueType extends AbstractType
             ])
             ->add('assignee', null, [
                 'label' => 'luminaire.issue.assignee.label'
+            ])
+            ->add('parent', null, [
+                'query_builder' => function (IssueRepository $issueRepository) {
+                    $issueTypeClass = 'LuminaireIssueBundle:IssueType';
+                    $type = $this->doctrine->getManagerForClass($issueTypeClass)
+                        ->getRepository($issueTypeClass)->findOneBy(['name' => IssueTypeEntity::TYPE_STORY]);
+                    return $issueRepository->getQueryBuilderByType($type);
+                },
             ])
             ->add(
                 'tags',

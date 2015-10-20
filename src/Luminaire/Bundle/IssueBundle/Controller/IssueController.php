@@ -10,6 +10,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 
 use Luminaire\Bundle\IssueBundle\Entity\Issue;
+use Luminaire\Bundle\IssueBundle\Entity\IssueType as IssueTypeEntity;
 use Luminaire\Bundle\IssueBundle\Form\Type\IssueType;
 
 /**
@@ -30,9 +31,26 @@ class IssueController extends Controller
      * @Route("/create", name="luminaire_issue_create")
      * @Template("LuminaireIssueBundle:Issue:update.html.twig")
      */
-    public function createAction()
+    public function createAction(Request $request)
     {
-        return $this->update(new Issue());
+        $issue = new Issue();
+        if ($parentId = $request->get('parent_id')) {
+            $issueTypeClass = 'LuminaireIssueBundle:IssueType';
+            $issueTypeRepository = $this->getDoctrine()->getManagerForClass($issueTypeClass)
+                ->getRepository($issueTypeClass);
+            $type           = $issueTypeRepository->findOneBy(['name' => IssueTypeEntity::TYPE_STORY]);
+            $issueClass = 'LuminaireIssueBundle:Issue';
+            $parent         = $this->getDoctrine()->getManagerForClass($issueClass)
+                ->getRepository($issueClass)->findOneBy([
+                    'id'   => $parentId,
+                    'type' => $type,
+                ]);
+            if ($parent) {
+                $issue->setParent($parent);
+                $issue->setType($issueTypeRepository->findOneBy(['name' => IssueTypeEntity::TYPE_SUBTASK]));
+            }
+        }
+        return $this->update($issue);
     }
 
     /**

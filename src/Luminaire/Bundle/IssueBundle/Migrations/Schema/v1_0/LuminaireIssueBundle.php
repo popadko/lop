@@ -53,6 +53,7 @@ class LuminaireIssueBundle implements Migration, NoteExtensionAwareInterface
     {
         $table = $schema->createTable('luminaire_issue');
         $table->addColumn('id', 'integer', ['autoincrement' => true]);
+        $table->addColumn('parent_id', 'integer', ['notnull' => false]);
         $table->addColumn('resolution_name', 'string', ['notnull' => false, 'length' => 16]);
         $table->addColumn('priority_name', 'string', ['length' => 16]);
         $table->addColumn('assignee_id', 'integer', ['notnull' => false]);
@@ -72,6 +73,7 @@ class LuminaireIssueBundle implements Migration, NoteExtensionAwareInterface
         $table->addIndex(['resolution_name'], 'IDX_901BA0508EEEA2E1', []);
         $table->addIndex(['reporter_id'], 'IDX_901BA050E1CFE6F5', []);
         $table->addIndex(['assignee_id'], 'IDX_901BA05059EC7D60', []);
+        $table->addIndex(['parent_id'], 'IDX_901BA050727ACA70', []);
 
         $this->noteExtension->addNoteAssociation($schema, $table->getName());
     }
@@ -156,6 +158,12 @@ class LuminaireIssueBundle implements Migration, NoteExtensionAwareInterface
     {
         $table = $schema->getTable('luminaire_issue');
         $table->addForeignKeyConstraint(
+            $schema->getTable('luminaire_issue'),
+            ['parent_id'],
+            ['id'],
+            ['onDelete' => null, 'onUpdate' => null]
+        );
+        $table->addForeignKeyConstraint(
             $schema->getTable('luminaire_issue_resolution'),
             ['resolution_name'],
             ['name'],
@@ -202,14 +210,14 @@ class LuminaireIssueBundle implements Migration, NoteExtensionAwareInterface
     {
         $table = $schema->getTable('luminaire_user_to_issue');
         $table->addForeignKeyConstraint(
-            $schema->getTable('oro_user'),
-            ['user_id'],
+            $schema->getTable('luminaire_issue'),
+            ['issue_id'],
             ['id'],
             ['onDelete' => 'CASCADE', 'onUpdate' => null]
         );
         $table->addForeignKeyConstraint(
-            $schema->getTable('luminaire_issue'),
-            ['issue_id'],
+            $schema->getTable('oro_user'),
+            ['user_id'],
             ['id'],
             ['onDelete' => 'CASCADE', 'onUpdate' => null]
         );
