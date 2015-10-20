@@ -1,0 +1,16 @@
+{% extends 'OroDashboardBundle:Dashboard:widget.html.twig' %}
+{% import 'OroDataGridBundle::macros.html.twig' as dataGrid %}
+
+{% block content %}
+    {{ dataGrid.renderGrid('dashboard-collaborator-issues-grid') }}
+{% endblock %}
+
+{% block actions %}
+    {% set actions = [{
+        'url': path('luminaire_issue_index', {'collaborator': true}),
+        'type': 'link',
+        'label': 'luminaire.issue.dashboard.collaborator_issues.view_all'|trans
+    }] %}
+
+    {{ parent() }}
+{% endblock %}

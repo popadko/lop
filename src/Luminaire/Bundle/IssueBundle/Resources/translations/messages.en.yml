@@ -66,3 +66,8 @@ luminaire:
             issues_by_status_chart:
                 title:       Issues by status
                 description: This widget displays a breakdown of issues by status in form of a bar chart.
+
+            collaborator_issues:
+                title:       Issues where user is collaborator
+                description: This widget displays a list of issues where user is collaborator.
+                view_all: View all

@@ -5,7 +5,7 @@ datagrid:
             type: orm
             query:
                 select:
-                    - issue.id
+                    - distinct issue.id
                     - issue.code
                     - issue.summary
                     - type.label as typeLabel
@@ -26,6 +26,7 @@ datagrid:
                         - { join: issue.resolution, alias: resolution}
                         - { join: issue.reporter, alias: reporter}
                         - { join: issue.assignee, alias: assignee}
+                        - { join: issue.collaborators, alias: collaborator}
         columns:
             code:
                 label: luminaire.issue.code.label
@@ -124,17 +125,33 @@ datagrid:
                             class: LuminaireIssueBundle:IssueResolution
                             property: label
                 reporterName:
-                    type:      string
-                    data_name: issue.reporter
+                    type: entity
+                    data_name: reporter.id
+                    options:
+                        field_options:
+                            class: OroUserBundle:User
+                            property: username
                 assigneeName:
-                    type:      string
-                    data_name: issue.assignee
+                    type: entity
+                    data_name: assignee.id
+                    options:
+                        field_options:
+                            class: OroUserBundle:User
+                            property: username
                 createdAt:
                     type:      date
                     data_name: issue.createdAt
                 updatedAt:
                     type:      date
                     data_name: issue.updatedAt
+                collaborators:
+                    label: luminaire.issue.collaborators.label
+                    type: entity
+                    data_name: collaborator.id
+                    options:
+                        field_options:
+                            class: OroUserBundle:User
+                            property: username
         actions:
             view:
                 type:          navigate
@@ -207,3 +224,82 @@ datagrid:
                         - (u in (:collaborators))
             bind_parameters:
                 - collaborators
+
+    dashboard-collaborator-issues-grid:
+        source:
+#            acl_resource: inventory.vehicle_view
+            type: orm
+            query:
+                select:
+                    - distinct issue.id
+                    - issue.code
+                    - issue.summary
+                    - issue.updatedAt
+                from:
+                    - { table: LuminaireIssueBundle:Issue, alias: issue }
+                join:
+                    left:
+                        - { join: issue.status, alias: status}
+                        - { join: issue.collaborators, alias: collaborator}
+                where:
+                    and:
+                        - (status.name not in ('closed', 'resolved'))
+                        - (collaborator = @oro_security.security_facade->getLoggedUserId)
+        columns:
+            code:
+                label: luminaire.issue.code.label
+            summary:
+                label: luminaire.issue.summary.label
+            updatedAt:
+                label: luminaire.issue.updated_at.label
+                frontend_type: date
+        properties:
+            id: ~
+            update_link:
+                type: url
+                route: luminaire_issue_update
+                params: [ id ]
+            view_link:
+                type: url
+                route: luminaire_issue_show
+                params: [ id ]
+            delete_link:
+                type: url
+                route: luminaire_api_delete_issue
+                params: [ id ]
+        sorters:
+            columns:
+                code:
+                    data_name: issue.code
+                summary:
+                    data_name: issue.summary
+                updatedAt:
+                    data_name: issue.updatedAt
+            default:
+                updatedAt: %oro_datagrid.extension.orm_sorter.class%::DIRECTION_DESC
+        actions:
+            view:
+                type:          navigate
+                label:         View
+                link:          view_link
+                icon:          eye-open
+#                acl_resource:  inventory.vehicle_view
+                rowAction:     true
+            update:
+                type:          navigate
+                label:         Update
+                link:          update_link
+                icon:          edit
+#                acl_resource:  inventory.vehicle_update
+            delete:
+                type:          delete
+                label:         Delete
+                link:          delete_link
+                icon:          trash
+#                acl_resource:  inventory.vehicle_delete
+        options:
+            toolbarOptions:
+                hide: true
+                pageSize:
+                    items: [10]
+                    default_per_page: 10
