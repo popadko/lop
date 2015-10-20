@@ -1,6 +1,10 @@
 parameters:
     luminaire_issue.condition.note_target.class: Luminaire\Bundle\IssueBundle\ConfigExpression\Condition\NoteTarget
     luminaire_issue.entity.issue.class: Luminaire\Bundle\IssueBundle\Entity\Issue
+    luminaire_issue.entity.issue_type.class: Luminaire\Bundle\IssueBundle\Entity\IssueType
+    luminaire_issue.entity.issue_priority.class: Luminaire\Bundle\IssueBundle\Entity\IssuePriority
+    luminaire_issue.entity.issue_status.class: Luminaire\Bundle\IssueBundle\Entity\IssueStatus
+    luminaire_issue.entity.issue_resolution.class: Luminaire\Bundle\IssueBundle\Entity\IssueResolution
     luminaire_issue.issue.manager.api.class: Oro\Bundle\SoapBundle\Entity\Manager\ApiEntityManager
     luminaire_issue.handler.request_collaborator.class: Luminaire\Bundle\IssueBundle\Handler\RequestCollaboratorHandler
     luminaire_issue.event_listener.datagrid.class: Luminaire\Bundle\IssueBundle\EventListener\DatagridListener

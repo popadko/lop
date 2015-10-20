@@ -17,7 +17,7 @@ datagrid:
                     - issue.createdAt
                     - issue.updatedAt
                 from:
-                    - { table: LuminaireIssueBundle:Issue, alias: issue }
+                    - { table: %luminaire_issue.entity.issue.class%, alias: issue }
                 join:
                     left:
                         - { join: issue.type, alias: type}
@@ -101,42 +101,42 @@ datagrid:
                     data_name: issue.type
                     options:
                         field_options:
-                            class: LuminaireIssueBundle:IssueType
+                            class: %luminaire_issue.entity.issue_type.class%
                             property: label
                 priorityLabel:
                     type: entity
                     data_name: issue.priority
                     options:
                         field_options:
-                            class: LuminaireIssueBundle:IssuePriority
+                            class: %luminaire_issue.entity.issue_priority.class%
                             property: label
                 statusLabel:
                     type: entity
                     data_name: issue.status
                     options:
                         field_options:
-                            class: LuminaireIssueBundle:IssueStatus
+                            class: %luminaire_issue.entity.issue_status.class%
                             property: label
                 resolutionLabel:
                     type: entity
                     data_name: issue.resolution
                     options:
                         field_options:
-                            class: LuminaireIssueBundle:IssueResolution
+                            class: %luminaire_issue.entity.issue_resolution.class%
                             property: label
                 reporterName:
                     type: entity
                     data_name: reporter.id
                     options:
                         field_options:
-                            class: OroUserBundle:User
+                            class: %oro_user.entity.class%
                             property: username
                 assigneeName:
                     type: entity
                     data_name: assignee.id
                     options:
                         field_options:
-                            class: OroUserBundle:User
+                            class: %oro_user.entity.class%
                             property: username
                 createdAt:
                     type:      date
@@ -150,7 +150,7 @@ datagrid:
                     data_name: collaborator.id
                     options:
                         field_options:
-                            class: OroUserBundle:User
+                            class: %oro_user.entity.class%
                             property: username
         actions:
             view:
@@ -185,7 +185,7 @@ datagrid:
                       CASE WHEN (user IN (:collaborators) or (user.id IN (:data_in) AND user.id NOT IN (:data_not_in)))
                        THEN true ELSE false END as isCollaborator
                 from:
-                    - { table: OroUserBundle:User, alias: user }
+                    - { table: %oro_user.entity.class%, alias: user }
             bind_parameters:
                 - collaborators
         columns:
@@ -236,7 +236,7 @@ datagrid:
                     - issue.summary
                     - issue.updatedAt
                 from:
-                    - { table: LuminaireIssueBundle:Issue, alias: issue }
+                    - { table: %luminaire_issue.entity.issue.class%, alias: issue }
                 join:
                     left:
                         - { join: issue.status, alias: status}
