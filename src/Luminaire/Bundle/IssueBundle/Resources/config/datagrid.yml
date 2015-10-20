@@ -303,3 +303,43 @@ datagrid:
                 pageSize:
                     items: [10]
                     default_per_page: 10
+
+    assignee-issues-grid:
+        extends: issues-grid
+        source:
+            query:
+                where:
+                    and:
+                        - (issue.assignee = :user_id)
+            bind_parameters:
+                - user_id
+        filters:
+            columns:
+                assigneeName:
+                    type: entity
+                    data_name: assignee.id
+                    options:
+                        field_options:
+                            class: %oro_user.entity.class%
+                            property: username
+                    enabled: false
+
+    reporter-issues-grid:
+        extends: issues-grid
+        source:
+            query:
+                where:
+                    and:
+                        - (issue.reporter = :user_id)
+            bind_parameters:
+                - user_id
+        filters:
+            columns:
+                reporterName:
+                    type: entity
+                    data_name: reporter.id
+                    options:
+                        field_options:
+                            class: %oro_user.entity.class%
+                            property: username
+                    enabled: false

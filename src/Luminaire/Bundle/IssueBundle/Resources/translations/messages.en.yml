@@ -71,3 +71,9 @@ luminaire:
                 title:       Issues where user is collaborator
                 description: This widget displays a list of issues where user is collaborator.
                 view_all: View all
+
+        placeholders:
+            orocrm_user_assigned_issues_grid:
+                title: Assigned issues
+            orocrm_user_reported_issues_grid:
+                title: Reported issues
