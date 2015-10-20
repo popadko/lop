@@ -240,6 +240,7 @@ datagrid:
                 join:
                     left:
                         - { join: issue.status, alias: status}
+                    inner:
                         - { join: issue.collaborators, alias: collaborator}
                 where:
                     and:
