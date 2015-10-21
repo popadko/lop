@@ -30,6 +30,10 @@ class IssueResolvedResolutionValidator extends ConstraintValidator
      */
     public function validate($entity, Constraint $constraint)
     {
+        if (empty($entity->getStatus())) {
+            return;
+        }
+
         if (!empty($entity->getResolution()) && !$entity->getStatus()->isResolved()) {
             $this->context->buildViolation($this->translator->trans($constraint->message))
                 ->atPath('resolution')

@@ -31,6 +31,10 @@ class IssueSubtaskParentValidator extends ConstraintValidator
      */
     public function validate($entity, Constraint $constraint)
     {
+        if (empty($entity->getType())) {
+            return;
+        }
+
         if (!empty($entity->getParent()) && !$entity->getType()->isSubtask()) {
             $this->context->buildViolation($this->translator->trans($constraint->message))
                 ->atPath('parent')

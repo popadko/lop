@@ -13,32 +13,32 @@ use Luminaire\Bundle\IssueBundle\Entity\IssueType;
 
 class LoadIssueData extends AbstractFixture implements DependentFixtureInterface
 {
-    const ISSUE_1 = 'issue_1';
-    const ISSUE_2 = 'issue_2';
+    const ISSUE_STORY = 'issue_story';
+    const ISSUE_BUG = 'issue_bug';
 
     /**
      * @var array
      */
     protected $issues = [
-        self::ISSUE_1 => [
-            'summary'     => 'Issue 1',
-            'description' => 'Issue 1 description',
-            'assignee'    => LoadIssueUsersData::ISSUE_USER_1,
-            'reporter'    => LoadIssueUsersData::ISSUE_USER_1,
-            'priority'    => IssuePriority::PRIORITY_MAJOR,
-            'resolution'  => null,
-            'type'        => IssueType::TYPE_TASK,
-            'status'      => IssueStatus::STATUS_OPEN,
-            'tags'        => [],
-        ],
-        self::ISSUE_2 => [
-            'summary'     => 'Issue 2',
-            'description' => 'Issue 2 description',
+        self::ISSUE_BUG   => [
+            'summary'     => 'Issue bug',
+            'description' => 'Issue bug description',
             'assignee'    => LoadIssueUsersData::ISSUE_USER_2,
             'reporter'    => LoadIssueUsersData::ISSUE_USER_2,
             'priority'    => IssuePriority::PRIORITY_MAJOR,
             'resolution'  => null,
-            'type'        => IssueType::TYPE_TASK,
+            'type'        => IssueType::TYPE_BUG,
+            'status'      => IssueStatus::STATUS_OPEN,
+            'tags'        => [],
+        ],
+        self::ISSUE_STORY => [
+            'summary'     => 'Issue story',
+            'description' => 'Issue story description',
+            'assignee'    => LoadIssueUsersData::ISSUE_USER_2,
+            'reporter'    => LoadIssueUsersData::ISSUE_USER_2,
+            'priority'    => IssuePriority::PRIORITY_MAJOR,
+            'resolution'  => null,
+            'type'        => IssueType::TYPE_STORY,
             'status'      => IssueStatus::STATUS_OPEN,
             'tags'        => [],
         ],
