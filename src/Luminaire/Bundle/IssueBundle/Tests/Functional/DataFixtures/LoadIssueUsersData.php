@@ -2,6 +2,7 @@
 
 namespace Luminaire\Bundle\IssueBundle\Tests\Functional\DataFixtures;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Component\DependencyInjection\ContainerAwareInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
@@ -31,16 +32,17 @@ class LoadIssueUsersData extends AbstractFixture implements ContainerAwareInterf
      */
     public function load(ObjectManager $manager)
     {
-        $this->createIssueUser(self::ISSUE_USER_1);
-        $this->createIssueUser(self::ISSUE_USER_2);
+        $this->createIssueUser($manager, self::ISSUE_USER_1);
+        $this->createIssueUser($manager, self::ISSUE_USER_2);
 
         $manager->flush();
     }
 
     /**
-     * @param string $name
+     * @param ObjectManager|\Doctrine\ORM\EntityManager $manager
+     * @param $name
      */
-    public function createIssueUser($name)
+    public function createIssueUser(ObjectManager $manager, $name)
     {
         $userManager = $this->container->get('oro_user.manager');
 
@@ -51,6 +53,8 @@ class LoadIssueUsersData extends AbstractFixture implements ContainerAwareInterf
             ->setFirstName($name . 'first_name')
             ->setLastName($name . 'last_name')
             ->setEmail($name . '@example.com')
+            ->setBusinessUnits(new ArrayCollection([$manager->getReference('OroOrganizationBundle:BusinessUnit', 1)]))
+            ->setOrganization($manager->getReference('OroOrganizationBundle:Organization', 1))
             ->setEnabled(true);
 
         $userManager->updateUser($user);

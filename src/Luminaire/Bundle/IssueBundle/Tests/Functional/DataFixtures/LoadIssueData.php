@@ -13,11 +13,14 @@ use Luminaire\Bundle\IssueBundle\Entity\IssueType;
 
 class LoadIssueData extends AbstractFixture implements DependentFixtureInterface
 {
+    const ISSUE_1 = 'issue_1';
+    const ISSUE_2 = 'issue_2';
+
     /**
      * @var array
      */
     protected $issues = [
-        [
+        self::ISSUE_1 => [
             'summary'     => 'Issue 1',
             'description' => 'Issue 1 description',
             'assignee'    => LoadIssueUsersData::ISSUE_USER_1,
@@ -28,7 +31,7 @@ class LoadIssueData extends AbstractFixture implements DependentFixtureInterface
             'status'      => IssueStatus::STATUS_OPEN,
             'tags'        => [],
         ],
-        [
+        self::ISSUE_2 => [
             'summary'     => 'Issue 2',
             'description' => 'Issue 2 description',
             'assignee'    => LoadIssueUsersData::ISSUE_USER_2,
@@ -90,6 +93,8 @@ class LoadIssueData extends AbstractFixture implements DependentFixtureInterface
         foreach ($data['tags'] as $tags) {
             $entity->setTags($tags);
         }
+
+        $manager->persist($entity);
 
         return $entity;
     }
