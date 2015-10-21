@@ -66,8 +66,7 @@ class LuminaireIssueBundle implements Migration, NoteExtensionAwareInterface, Ac
      */
     protected function createLuminaireIssueTable(Schema $schema)
     {
-        $tableName = 'luminaire_issue';
-        $table = $schema->createTable($tableName);
+        $table = $schema->createTable('luminaire_issue');
         $table->addColumn('id', 'integer', ['autoincrement' => true]);
         $table->addColumn('parent_id', 'integer', ['notnull' => false]);
         $table->addColumn('resolution_name', 'string', ['notnull' => false, 'length' => 16]);
@@ -90,7 +89,7 @@ class LuminaireIssueBundle implements Migration, NoteExtensionAwareInterface, Ac
         $table->addIndex(['parent_id'], 'IDX_901BA050727ACA70', []);
 
         $this->noteExtension->addNoteAssociation($schema, $table->getName());
-        $this->activityExtension->addActivityAssociation($schema, 'oro_email', $tableName, true);
+        $this->activityExtension->addActivityAssociation($schema, 'oro_email', $table->getName(), true);
     }
 
     /**

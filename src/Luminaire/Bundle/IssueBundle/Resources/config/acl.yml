@@ -1,0 +1,27 @@
+luminaire_issue_view:
+    type: entity
+    class: LuminaireIssueBundle:Issue
+    permission: VIEW
+    group_name: ""
+    bindings: ~
+
+luminaire_issue_create:
+    type: entity
+    class: LuminaireIssueBundle:Issue
+    permission: CREATE
+    group_name: ""
+    bindings: ~
+
+luminaire_issue_update:
+    type: entity
+    class: LuminaireIssueBundle:Issue
+    permission: EDIT
+    group_name: ""
+    bindings: ~
+
+luminaire_issue_delete:
+    type: entity
+    class: LuminaireIssueBundle:Issue
+    permission: DELETE
+    group_name: ""
+    bindings: ~
