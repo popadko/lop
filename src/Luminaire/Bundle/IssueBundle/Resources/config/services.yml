@@ -9,6 +9,8 @@ parameters:
     luminaire_issue.handler.request_collaborator.class: Luminaire\Bundle\IssueBundle\Handler\RequestCollaboratorHandler
     luminaire_issue.event_listener.datagrid.class: Luminaire\Bundle\IssueBundle\EventListener\DatagridListener
     luminaire_issue.issue_entity_name_provider.class: Luminaire\Bundle\IssueBundle\Provider\IssueEntityNameProvider
+    luminaire_issue.validator.issue_subtask_parent_validator.class: Luminaire\Bundle\IssueBundle\Validator\IssueSubtaskParentValidator
+    luminaire_issue.validator.issue_resolved_resolution_validator.class: Luminaire\Bundle\IssueBundle\Validator\IssueResolvedResolutionValidator
 
 services:
     luminaire_issue.issue.manager.api:
@@ -41,3 +43,17 @@ services:
         public: false
         tags:
             - { name: oro_entity.name_provider, priority: 0 }
+
+    luminaire_issue.validator.issue_resolved_resolution_validator:
+        class: %luminaire_issue.validator.issue_resolved_resolution_validator.class%
+        arguments:
+            - @translator
+        tags:
+            - { name: validator.constraint_validator, alias: luminaire_issue.validator.issue_resolved_resolution_validator }
+
+    luminaire_issue.validator.issue_subtask_parent_validator:
+        class: %luminaire_issue.validator.issue_subtask_parent_validator.class%
+        arguments:
+            - @translator
+        tags:
+            - { name: validator.constraint_validator, alias: luminaire_issue.validator.issue_subtask_parent_validator }

@@ -6,8 +6,6 @@ use Symfony\Component\Validator\Constraint;
 
 /**
  * Class IssueResolvedResolution
- *
- * @Annotation
  */
 class IssueResolvedResolution extends Constraint
 {
@@ -22,10 +20,18 @@ class IssueResolvedResolution extends Constraint
     public $messageResolution = 'luminaire.issue.validation.resolved_resolution.require';
 
     /**
-     * @return string
+     * @inheritDoc
      */
     public function getTargets()
     {
         return self::CLASS_CONSTRAINT;
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function validatedBy()
+    {
+        return 'luminaire_issue.validator.issue_resolved_resolution_validator';
     }
 }

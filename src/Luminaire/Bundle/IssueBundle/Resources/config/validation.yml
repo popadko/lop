@@ -1,4 +1,4 @@
-Luminiare\Bundle\IssueBundle\Entity\Issue:
+Luminaire\Bundle\IssueBundle\Entity\Issue:
     constraints:
         - Luminaire\Bundle\IssueBundle\Validator\Constraints\IssueSubtaskParent: ~
         - Luminaire\Bundle\IssueBundle\Validator\Constraints\IssueResolvedResolution: ~
@@ -12,8 +12,6 @@ Luminiare\Bundle\IssueBundle\Entity\Issue:
         status:
             - NotBlank: ~
         priority:
-            - NotBlank: ~
-        resolution:
             - NotBlank: ~
         type:
             - NotBlank: ~

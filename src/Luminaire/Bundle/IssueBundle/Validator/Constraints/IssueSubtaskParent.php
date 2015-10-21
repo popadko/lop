@@ -6,8 +6,6 @@ use Symfony\Component\Validator\Constraint;
 
 /**
  * Class IssueSubtaskParent
- *
- * @Annotation
  */
 class IssueSubtaskParent extends Constraint
 {
@@ -22,10 +20,18 @@ class IssueSubtaskParent extends Constraint
     public $messageEmptyParent = 'luminaire.issue.validation.subtask.empty_parent';
 
     /**
-     * @return string
+     * @inheritDoc
      */
     public function getTargets()
     {
         return self::CLASS_CONSTRAINT;
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function validatedBy()
+    {
+        return 'luminaire_issue.validator.issue_subtask_parent_validator';
     }
 }
