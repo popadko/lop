@@ -3,6 +3,8 @@
 namespace Luminaire\Bundle\IssueBundle\Migrations\Schema\v1_0;
 
 use Doctrine\DBAL\Schema\Schema;
+use Oro\Bundle\ActivityBundle\Migration\Extension\ActivityExtension;
+use Oro\Bundle\ActivityBundle\Migration\Extension\ActivityExtensionAwareInterface;
 use Oro\Bundle\MigrationBundle\Migration\Migration;
 use Oro\Bundle\MigrationBundle\Migration\QueryBag;
 use Oro\Bundle\NoteBundle\Migration\Extension\NoteExtension;
@@ -11,7 +13,7 @@ use Oro\Bundle\NoteBundle\Migration\Extension\NoteExtensionAwareInterface;
 /**
  * Class LuminaireIssueBundle
  */
-class LuminaireIssueBundle implements Migration, NoteExtensionAwareInterface
+class LuminaireIssueBundle implements Migration, NoteExtensionAwareInterface, ActivityExtensionAwareInterface
 {
     /**
      * @var NoteExtension
@@ -19,11 +21,24 @@ class LuminaireIssueBundle implements Migration, NoteExtensionAwareInterface
     protected $noteExtension;
 
     /**
+     * @var ActivityExtension
+     */
+    protected $activityExtension;
+
+    /**
      * @inheritDoc
      */
     public function setNoteExtension(NoteExtension $noteExtension)
     {
         $this->noteExtension = $noteExtension;
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function setActivityExtension(ActivityExtension $activityExtension)
+    {
+        $this->activityExtension = $activityExtension;
     }
 
     /**
@@ -51,6 +66,7 @@ class LuminaireIssueBundle implements Migration, NoteExtensionAwareInterface
      */
     protected function createLuminaireIssueTable(Schema $schema)
     {
+        $tableName = 'luminaire_issue';
         $table = $schema->createTable('luminaire_issue');
         $table->addColumn('id', 'integer', ['autoincrement' => true]);
         $table->addColumn('parent_id', 'integer', ['notnull' => false]);
@@ -76,6 +92,7 @@ class LuminaireIssueBundle implements Migration, NoteExtensionAwareInterface
         $table->addIndex(['parent_id'], 'IDX_901BA050727ACA70', []);
 
         $this->noteExtension->addNoteAssociation($schema, $table->getName());
+        $this->activityExtension->addActivityAssociation($schema, 'oro_email', $tableName, true);
     }
 
     /**

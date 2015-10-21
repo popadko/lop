@@ -8,6 +8,7 @@ parameters:
     luminaire_issue.issue.manager.api.class: Oro\Bundle\SoapBundle\Entity\Manager\ApiEntityManager
     luminaire_issue.handler.request_collaborator.class: Luminaire\Bundle\IssueBundle\Handler\RequestCollaboratorHandler
     luminaire_issue.event_listener.datagrid.class: Luminaire\Bundle\IssueBundle\EventListener\DatagridListener
+    luminaire_issue.issue_entity_name_provider.class: Luminaire\Bundle\IssueBundle\Provider\IssueEntityNameProvider
 
 services:
     luminaire_issue.issue.manager.api:
@@ -34,3 +35,9 @@ services:
         arguments:
             - @request_stack
             - @security.token_storage
+
+    luminaire_issue.issue_entity_name_provider:
+        class: %luminaire_issue.issue_entity_name_provider.class%
+        public: false
+        tags:
+            - { name: oro_entity.name_provider, priority: 0 }

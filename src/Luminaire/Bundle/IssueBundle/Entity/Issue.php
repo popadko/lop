@@ -5,6 +5,7 @@ namespace Luminaire\Bundle\IssueBundle\Entity;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Oro\Bundle\EmailBundle\Model\EmailHolderInterface;
 use Oro\Bundle\TagBundle\Entity\Taggable;
 use Oro\Bundle\UserBundle\Entity\User;
 use Oro\Bundle\EntityConfigBundle\Metadata\Annotation\Config;
@@ -21,7 +22,7 @@ use Luminaire\Bundle\IssueBundle\Model\ExtendIssue;
  * @SuppressWarnings(PHPMD.CouplingBetweenObjects)
  * @SuppressWarnings(PHPMD.TooManyFields)
  */
-class Issue extends ExtendIssue implements Taggable
+class Issue extends ExtendIssue implements Taggable, EmailHolderInterface
 {
     /**
      * @var integer
@@ -567,5 +568,13 @@ class Issue extends ExtendIssue implements Taggable
     public function getChildren()
     {
         return $this->children;
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function getEmail()
+    {
+        return $this->getReporter()->getEmail();
     }
 }
