@@ -1,0 +1,21 @@
+Luminiare\Bundle\IssueBundle\Entity\Issue:
+    constraints:
+        - Luminaire\Bundle\IssueBundle\Validator\Constraints\IssueSubtaskParent: ~
+        - Luminaire\Bundle\IssueBundle\Validator\Constraints\IssueResolvedResolution: ~
+    properties:
+        summary:
+            - NotBlank: ~
+            - Length:
+                max: 255
+        description:
+            - NotBlank: ~
+        status:
+            - NotBlank: ~
+        priority:
+            - NotBlank: ~
+        resolution:
+            - NotBlank: ~
+        type:
+            - NotBlank: ~
+        reporter:
+            - NotBlank: ~

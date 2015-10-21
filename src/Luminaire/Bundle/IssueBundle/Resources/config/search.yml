@@ -9,9 +9,9 @@ Luminaire\Bundle\IssueBundle\Entity\Issue:
     title_fields: [summary]
     fields:
         -
-            name: code
-            target_type: text
-            target_fields: [code]
+            name: id
+            target_type: integer
+            target_fields: [id]
         -
             name: summary
             target_type: text

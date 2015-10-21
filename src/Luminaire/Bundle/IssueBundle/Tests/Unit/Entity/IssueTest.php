@@ -93,7 +93,6 @@ class IssueTest extends EntityTestCase
         return [
             ['summary', 'summary'],
             ['description', 'description'],
-            ['code', 'code'],
             ['assignee', $this->getMock('Oro\Bundle\UserBundle\Entity\User')],
             ['assignee', null],
             ['reporter', $this->getMock('Oro\Bundle\UserBundle\Entity\User')],

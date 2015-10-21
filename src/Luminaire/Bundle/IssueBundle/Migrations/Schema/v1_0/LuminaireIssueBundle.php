@@ -67,7 +67,7 @@ class LuminaireIssueBundle implements Migration, NoteExtensionAwareInterface, Ac
     protected function createLuminaireIssueTable(Schema $schema)
     {
         $tableName = 'luminaire_issue';
-        $table = $schema->createTable('luminaire_issue');
+        $table = $schema->createTable($tableName);
         $table->addColumn('id', 'integer', ['autoincrement' => true]);
         $table->addColumn('parent_id', 'integer', ['notnull' => false]);
         $table->addColumn('resolution_name', 'string', ['notnull' => false, 'length' => 16]);
@@ -80,9 +80,7 @@ class LuminaireIssueBundle implements Migration, NoteExtensionAwareInterface, Ac
         $table->addColumn('description', 'text', []);
         $table->addColumn('created_at', 'datetime', []);
         $table->addColumn('updated_at', 'datetime', []);
-        $table->addColumn('code', 'string', ['length' => 16]);
         $table->setPrimaryKey(['id']);
-        $table->addUniqueIndex(['code'], 'UNIQ_901BA05077153098');
         $table->addIndex(['type_name'], 'IDX_901BA050892CBB0E', []);
         $table->addIndex(['status_name'], 'IDX_901BA0506625D392', []);
         $table->addIndex(['priority_name'], 'IDX_901BA050965BD3DF', []);
@@ -227,14 +225,14 @@ class LuminaireIssueBundle implements Migration, NoteExtensionAwareInterface, Ac
     {
         $table = $schema->getTable('luminaire_user_to_issue');
         $table->addForeignKeyConstraint(
-            $schema->getTable('luminaire_issue'),
-            ['issue_id'],
+            $schema->getTable('oro_user'),
+            ['user_id'],
             ['id'],
             ['onDelete' => 'CASCADE', 'onUpdate' => null]
         );
         $table->addForeignKeyConstraint(
-            $schema->getTable('oro_user'),
-            ['user_id'],
+            $schema->getTable('luminaire_issue'),
+            ['issue_id'],
             ['id'],
             ['onDelete' => 'CASCADE', 'onUpdate' => null]
         );

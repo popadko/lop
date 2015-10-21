@@ -3,10 +3,9 @@ luminaire:
         entity_label: Issue
         entity_plural_label: Issues
         entity_description: Represent Issue
-        id.label: Issue id
+        id.label: Issue code
         summary.label: Summary
         description.label: Description
-        code.label: Issue Code
         assignee.label: Assignee
         status.label: Status
         type.label: Type
@@ -80,3 +79,9 @@ luminaire:
                 title: Assigned issues
             orocrm_user_reported_issues_grid:
                 title: Reported issues
+
+        validation:
+            resolved_resolution: Resolution can be set only for Resolved issue.
+            resolved_resolution.require: Resolution must be set for Resolved issue.
+            subtask: Parent issue can be set only for Subtask issue.
+            subtask.empty_parent: Parent issue must be set for Subtask issue.

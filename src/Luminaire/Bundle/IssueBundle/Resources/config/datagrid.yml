@@ -6,7 +6,7 @@ datagrid:
             query:
                 select:
                     - distinct issue.id
-                    - issue.code
+                    - issue.id
                     - issue.summary
                     - type.label as typeLabel
                     - priority.label as priorityLabel
@@ -28,8 +28,8 @@ datagrid:
                         - { join: issue.assignee, alias: assignee}
                         - { join: issue.collaborators, alias: collaborator}
         columns:
-            code:
-                label: luminaire.issue.code.label
+            id:
+                label: luminaire.issue.id.label
             summary:
                 label: luminaire.issue.summary.label
             typeLabel:
@@ -66,8 +66,8 @@ datagrid:
                 params: [ id ]
         sorters:
             columns:
-                code:
-                    data_name: issue.code
+                id:
+                    data_name: issue.id
                 summary:
                     data_name: issue.summary
                 typeLabel:
@@ -90,9 +90,9 @@ datagrid:
                 updatedAt: %oro_datagrid.extension.orm_sorter.class%::DIRECTION_DESC
         filters:
             columns:
-                code:
+                id:
                     type:      number
-                    data_name: issue.code
+                    data_name: issue.id
                 summary:
                     type:      string
                     data_name: issue.summary
@@ -232,7 +232,7 @@ datagrid:
             query:
                 select:
                     - distinct issue.id
-                    - issue.code
+                    - issue.id
                     - issue.summary
                     - issue.updatedAt
                 from:
@@ -247,8 +247,8 @@ datagrid:
                         - (status.name not in ('closed', 'resolved'))
                         - (collaborator = @oro_security.security_facade->getLoggedUserId)
         columns:
-            code:
-                label: luminaire.issue.code.label
+            id:
+                label: luminaire.issue.id.label
             summary:
                 label: luminaire.issue.summary.label
             updatedAt:
@@ -270,8 +270,8 @@ datagrid:
                 params: [ id ]
         sorters:
             columns:
-                code:
-                    data_name: issue.code
+                id:
+                    data_name: issue.id
                 summary:
                     data_name: issue.summary
                 updatedAt:

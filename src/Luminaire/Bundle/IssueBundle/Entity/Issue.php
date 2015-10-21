@@ -48,13 +48,6 @@ class Issue extends ExtendIssue implements Taggable, EmailHolderInterface
     private $description;
 
     /**
-     * @var string
-     *
-     * @ORM\Column(name="code", type="string", length=16, unique=true)
-     */
-    private $code;
-
-    /**
      * @var IssueType
      *
      * @ORM\ManyToOne(targetEntity="IssueType")
@@ -175,7 +168,7 @@ class Issue extends ExtendIssue implements Taggable, EmailHolderInterface
      */
     public function __toString()
     {
-        return $this->code;
+        return $this->getId();
     }
 
     /**
@@ -398,30 +391,6 @@ class Issue extends ExtendIssue implements Taggable, EmailHolderInterface
     public function getAssignee()
     {
         return $this->assignee;
-    }
-
-    /**
-     * Set code
-     *
-     * @param string $code
-     *
-     * @return Issue
-     */
-    public function setCode($code)
-    {
-        $this->code = $code;
-
-        return $this;
-    }
-
-    /**
-     * Get code
-     *
-     * @return string
-     */
-    public function getCode()
-    {
-        return $this->code;
     }
 
     /**

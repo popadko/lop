@@ -38,7 +38,6 @@ class IssueType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('code')
             ->add('summary')
             ->add('description')
             ->add('type')

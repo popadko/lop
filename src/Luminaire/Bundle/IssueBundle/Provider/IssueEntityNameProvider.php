@@ -25,10 +25,10 @@ class IssueEntityNameProvider implements EntityNameProviderInterface
         }
 
         if ($format === self::SHORT) {
-            return $entity->getCode();
+            return $entity->getId();
 
         }
-        return $entity->getCode() . ' ' . $entity->getSummary();
+        return $entity->getId() . ' ' . $entity->getSummary();
     }
 
     /**
@@ -41,9 +41,9 @@ class IssueEntityNameProvider implements EntityNameProviderInterface
         }
 
         if ($format === self::SHORT) {
-            return $alias . '.code';
+            return $alias . '.id';
         }
 
-        return sprintf('CONCAT(%s.code, \' \', %s.summary)', $alias, $alias);
+        return sprintf('CONCAT(%s.id, \' \', %s.summary)', $alias, $alias);
     }
 }
