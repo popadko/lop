@@ -1,2 +1,2 @@
 bundles:
-    - Luminaire\Bundle\IssueBundle\LuminaireIssueBundle
+    - { name: Luminaire\Bundle\IssueBundle\LuminaireIssueBundle, priority: 1 }
