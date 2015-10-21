@@ -5,16 +5,16 @@
 {% oro_title_set({params : {"%entity.summary%": entity.summary|default('N/A') }}) %}
 
 {% block navButtons %}
-    {#{% if resource_granted('luminaire_issue_create') %}#}
-    {% if entity.type.isStory() %}
-    <div class="btn-group">
-        {{ UI.addButton({
-            'path': path('luminaire_issue_create', { parent_id: entity.id }),
-            'entity_label': 'luminaire.issue.issuestatus.subtask.label'|trans
-        }) }}
-    </div>
+    {% if resource_granted('luminaire_issue_create') %}
+        {% if entity.type.isStory() %}
+            <div class="btn-group">
+                {{ UI.addButton({
+                    'path': path('luminaire_issue_create', { parent_id: entity.id }),
+                    'entity_label': 'luminaire.issue.issuestatus.subtask.label'|trans
+                }) }}
+            </div>
+        {% endif %}
     {% endif %}
-    {#{% endif %}#}
 
     {% if resource_granted('EDIT', entity) %}
         {{ UI.editButton({

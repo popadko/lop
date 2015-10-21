@@ -12,12 +12,12 @@
         dataGridName: gridName
     } %}
 
-    {#{% if resource_granted('luminaire_issue_create') %}#}
+    {% if resource_granted('luminaire_issue_create') %}
         <div class="btn-group">
             {{ UI.addButton({
                 'path': path('luminaire_issue_create'),
                 'entity_label': 'luminaire.issue.entity_label'|trans
             }) }}
         </div>
-    {#{% endif %}#}
+    {% endif %}
 {% endblock %}

@@ -2,7 +2,6 @@
 
 namespace Luminaire\Bundle\IssueBundle\Controller;
 
-use Luminaire\Bundle\IssueBundle\Entity\Repository\IssueRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\HttpFoundation\RedirectResponse;
@@ -10,9 +9,12 @@ use Symfony\Component\HttpFoundation\Request;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 
+use Luminaire\Bundle\IssueBundle\Form\Type\IssueType;
 use Luminaire\Bundle\IssueBundle\Entity\Issue;
 use Luminaire\Bundle\IssueBundle\Entity\IssueType as IssueTypeEntity;
-use Luminaire\Bundle\IssueBundle\Form\Type\IssueType;
+use Luminaire\Bundle\IssueBundle\Entity\Repository\IssueRepository;
+
+use Oro\Bundle\SecurityBundle\Annotation\AclAncestor;
 
 /**
  * @Route("/issue")
@@ -22,6 +24,7 @@ class IssueController extends Controller
     /**
      * @Route("/", name="luminaire_issue_index")
      * @Template
+     * @AclAncestor("lumianire_issue_view")
      */
     public function indexAction()
     {
@@ -31,6 +34,7 @@ class IssueController extends Controller
     /**
      * @Route("/create", name="luminaire_issue_create")
      * @Template("LuminaireIssueBundle:Issue:update.html.twig")
+     * @AclAncestor("lumianire_issue_view")
      */
     public function createAction(Request $request)
     {
@@ -70,6 +74,7 @@ class IssueController extends Controller
     /**
      * @Route("/update/{id}", name="luminaire_issue_update", requirements={"id":"\d+"})
      * @Template()
+     * @AclAncestor("lumianire_issue_update")
      */
     public function updateAction(Issue $entity)
     {

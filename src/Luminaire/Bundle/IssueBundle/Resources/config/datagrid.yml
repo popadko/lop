@@ -1,7 +1,7 @@
 datagrid:
     issues-grid:
         source:
-#            acl_resource: inventory.vehicle_view
+            acl_resource: luminaire_issue_view
             type: orm
             query:
                 select:
@@ -158,25 +158,25 @@ datagrid:
                 label:         View
                 link:          view_link
                 icon:          eye-open
-#                acl_resource:  inventory.vehicle_view
+                acl_resource:  luminaire_issue_view
                 rowAction:     true
             update:
                 type:          navigate
                 label:         Update
                 link:          update_link
                 icon:          edit
-#                acl_resource:  inventory.vehicle_update
+                acl_resource:  luminaire_issue_update
             delete:
                 type:          delete
                 label:         Delete
                 link:          delete_link
                 icon:          trash
-#                acl_resource:  inventory.vehicle_delete
+                acl_resource:  luminaire_issue_delete
 
     issue-collaborators-update-grid:
         source:
             type: orm
-#            acl_resource: orocrm_contact_view
+            acl_resource: luminaire_issue_view
             query:
                 select:
                     - user.id
@@ -227,7 +227,7 @@ datagrid:
 
     dashboard-collaborator-issues-grid:
         source:
-#            acl_resource: inventory.vehicle_view
+            acl_resource: luminaire_issue_view
             type: orm
             query:
                 select:
@@ -284,20 +284,20 @@ datagrid:
                 label:         View
                 link:          view_link
                 icon:          eye-open
-#                acl_resource:  inventory.vehicle_view
+                acl_resource:  luminaire_issue_view
                 rowAction:     true
             update:
                 type:          navigate
                 label:         Update
                 link:          update_link
                 icon:          edit
-#                acl_resource:  inventory.vehicle_update
+                acl_resource:  luminaire_issue_update
             delete:
                 type:          delete
                 label:         Delete
                 link:          delete_link
                 icon:          trash
-#                acl_resource:  inventory.vehicle_delete
+                acl_resource:  luminaire_issue_delete
         options:
             toolbarOptions:
                 hide: true

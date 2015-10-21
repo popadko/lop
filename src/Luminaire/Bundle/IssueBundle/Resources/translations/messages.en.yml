@@ -75,9 +75,9 @@ luminaire:
                 view_all: View all
 
         placeholders:
-            orocrm_user_assigned_issues_grid:
+            luminaire_user_assigned_issues_grid:
                 title: Assigned issues
-            orocrm_user_reported_issues_grid:
+            luminaire_user_reported_issues_grid:
                 title: Reported issues
 
         validation:
