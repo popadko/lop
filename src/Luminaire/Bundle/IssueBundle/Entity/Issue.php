@@ -168,7 +168,7 @@ class Issue extends ExtendIssue implements Taggable, EmailHolderInterface
      */
     public function __toString()
     {
-        return $this->getId();
+        return $this->getId() . ' ' . $this->getSummary();
     }
 
     /**
