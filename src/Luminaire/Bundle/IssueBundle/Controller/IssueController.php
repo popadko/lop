@@ -2,6 +2,7 @@
 
 namespace Luminaire\Bundle\IssueBundle\Controller;
 
+use Luminaire\Bundle\IssueBundle\Entity\Repository\IssueRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\HttpFoundation\RedirectResponse;
@@ -35,22 +36,35 @@ class IssueController extends Controller
     {
         $issue = new Issue();
         if ($parentId = $request->get('parent_id')) {
-            $issueTypeClass = 'LuminaireIssueBundle:IssueType';
-            $issueTypeRepository = $this->getDoctrine()->getManagerForClass($issueTypeClass)
-                ->getRepository($issueTypeClass);
-            $type           = $issueTypeRepository->findOneBy(['name' => IssueTypeEntity::TYPE_STORY]);
-            $issueClass = 'LuminaireIssueBundle:Issue';
-            $parent         = $this->getDoctrine()->getManagerForClass($issueClass)
-                ->getRepository($issueClass)->findOneBy([
-                    'id'   => $parentId,
-                    'type' => $type,
-                ]);
+            $type   = $this->getIssueTypeRepository()->findOneBy(['name' => IssueTypeEntity::TYPE_STORY]);
+            $parent = $this->getIssueRepository()->findOneBy([
+                'id'   => $parentId,
+                'type' => $type,
+            ]);
             if ($parent) {
                 $issue->setParent($parent);
-                $issue->setType($issueTypeRepository->findOneBy(['name' => IssueTypeEntity::TYPE_SUBTASK]));
+                $issue->setType($this->getIssueTypeRepository()->findOneBy(['name' => IssueTypeEntity::TYPE_SUBTASK]));
             }
         }
         return $this->update($issue);
+    }
+
+    /**
+     * @return \Doctrine\Common\Persistence\ObjectRepository
+     */
+    protected function getIssueTypeRepository()
+    {
+        $issueTypeClass = 'LuminaireIssueBundle:IssueType';
+        return $this->getDoctrine()->getManagerForClass($issueTypeClass)->getRepository($issueTypeClass);
+    }
+
+    /**
+     * @return IssueRepository
+     */
+    protected function getIssueRepository()
+    {
+        $issueTypeClass = 'LuminaireIssueBundle:Issue';
+        return $this->getDoctrine()->getManagerForClass($issueTypeClass)->getRepository($issueTypeClass);
     }
 
     /**
@@ -88,7 +102,7 @@ class IssueController extends Controller
                 ];
             },
             $this->get('translator')->trans('luminaire.issue.controller.issue.saved.message'),
-            $this->get('luminaire_issue.form.handler.entity'),
+            $this->get('luminaire_issue.form.handler.entity')->setForm($form),
             function (Issue $entity, FormInterface $form) {
                 return [
                     'entity' => $entity,

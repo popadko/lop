@@ -21,7 +21,6 @@ services:
         class: %luminaire_issue.form.handler.issue.class%
         scope: request
         arguments:
-            - @luminaire_issue.form.issue
             - @request
             - @doctrine.orm.entity_manager
         tags:

@@ -18,7 +18,22 @@ class IssueHandler implements TagHandlerInterface
     /**
      * @var TagManager
      */
-    private $tagManager;
+    protected $tagManager;
+
+    /**
+     * @var Request
+     */
+    protected $request;
+
+    /**
+     * @var ObjectManager
+     */
+    protected $manager;
+
+    /**
+     * @var FormInterface
+     */
+    protected $form;
 
     /**
      * @param FormInterface $form
@@ -26,13 +41,21 @@ class IssueHandler implements TagHandlerInterface
      * @param ObjectManager $manager
      */
     public function __construct(
-        FormInterface $form,
         Request $request,
         ObjectManager $manager
     ) {
-        $this->form    = $form;
         $this->request = $request;
         $this->manager = $manager;
+    }
+
+    /**
+     * @param FormInterface $form
+     */
+    public function setForm(FormInterface $form)
+    {
+        $this->form = $form;
+
+        return $this;
     }
 
     /**
@@ -49,6 +72,10 @@ class IssueHandler implements TagHandlerInterface
      */
     public function process(Issue $entity)
     {
+        if (!$this->form) {
+            throw new \LogicException('Form must be set for IssueHandler via setForm method.');
+        }
+
         $this->form->setData($entity);
 
         if ($this->request->isMethod('POST')) {
