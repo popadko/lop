@@ -24,7 +24,7 @@ class IssueController extends Controller
     /**
      * @Route("/", name="luminaire_issue_index")
      * @Template
-     * @AclAncestor("lumianire_issue_view")
+     * @AclAncestor("luminaire_issue_view")
      */
     public function indexAction()
     {
@@ -34,7 +34,7 @@ class IssueController extends Controller
     /**
      * @Route("/create", name="luminaire_issue_create")
      * @Template("LuminaireIssueBundle:Issue:update.html.twig")
-     * @AclAncestor("lumianire_issue_view")
+     * @AclAncestor("luminaire_issue_view")
      */
     public function createAction(Request $request)
     {
@@ -74,7 +74,7 @@ class IssueController extends Controller
     /**
      * @Route("/update/{id}", name="luminaire_issue_update", requirements={"id":"\d+"})
      * @Template()
-     * @AclAncestor("lumianire_issue_update")
+     * @AclAncestor("luminaire_issue_update")
      */
     public function updateAction(Issue $entity)
     {
