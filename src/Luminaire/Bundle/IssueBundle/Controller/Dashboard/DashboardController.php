@@ -2,10 +2,10 @@
 
 namespace Luminaire\Bundle\IssueBundle\Controller\Dashboard;
 
-use Luminaire\Bundle\IssueBundle\Entity\IssueStatus;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
+use Luminaire\Bundle\IssueBundle\Entity\IssueStatus;
 
 /**
  * Class DashboardController
@@ -14,13 +14,13 @@ class DashboardController extends Controller
 {
     /**
      * @Route(
-     *      "/opportunity_state/chart/{widget}",
+     *      "/issue/status_chart/{widget}",
      *      name="luminaire_issue_issues_by_status_chart",
      *      requirements={"widget"="[\w-]+"}
      * )
      * @Template("LuminaireIssueBundle:Dashboard:issuesByStatus.html.twig")
      */
-    public function opportunityByStatusAction($widget)
+    public function issueByStatusAction($widget)
     {
         $items = $this->getDoctrine()
             ->getRepository('LuminaireIssueBundle:Issue')
