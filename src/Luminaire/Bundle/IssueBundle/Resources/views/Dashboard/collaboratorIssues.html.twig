@@ -7,7 +7,7 @@
 
 {% block actions %}
     {% set actions = [{
-        'url': path('luminaire_issue_index', {'collaborator': true}),
+        'url': path('luminaire_issue_index', { 'grid': {'issues-grid':  {'f': { 'collaborators': { 'value': app.user.id }}}|url_encode }}),
         'type': 'link',
         'label': 'luminaire.issue.dashboard.collaborator_issues.view_all'|trans
     }] %}
