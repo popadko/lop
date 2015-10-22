@@ -85,3 +85,7 @@ luminaire:
             resolved_resolution.require: Resolution must be set for Resolved issue.
             subtask: Parent issue can be set only for Subtask issue.
             subtask.empty_parent: Parent issue must be set for Subtask issue.
+
+        create_issue: Create issue
+        create_issue.title: Create issue assigned to this user
+        create_issue.widget_title: Create issue and assign to %username%

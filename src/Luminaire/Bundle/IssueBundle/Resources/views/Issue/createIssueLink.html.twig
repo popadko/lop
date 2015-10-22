@@ -1,0 +1,25 @@
+{{ UI.clientLink({
+    'dataUrl': path('luminaire_issue_create', oro_action_params(entity, 'assign')),
+    'aCss': 'no-hash',
+    'iCss': 'icon-tasks',
+    'dataId': entity.id,
+    'label': 'luminaire.issue.create_issue'|trans,
+    'title': 'luminaire.issue.create_issue.title'|trans,
+    'widget': {
+        'type': 'dialog',
+        'multiple': true,
+        'reload-grid-name': 'assignee-issues-grid',
+        'options': {
+            'alias': 'create-issue-dialog',
+            'dialogOptions': {
+                'title': 'luminaire.issue.create_issue.widget_title'|trans({'%username%': entity|oro_format_name}),
+                'allowMaximize': true,
+                'allowMinimize': true,
+                'dblclick': 'maximize',
+                'maximizedHeightDecreaseBy': 'minimize-bar',
+                'width': 1000,
+                'height': 500
+            }
+        }
+    }
+}) }}

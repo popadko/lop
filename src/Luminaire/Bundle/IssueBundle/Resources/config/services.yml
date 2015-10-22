@@ -49,3 +49,11 @@ services:
             - @translator
         tags:
             - { name: validator.constraint_validator, alias: luminaire_issue.validator.issue_subtask_parent_validator }
+
+    luminaire_issue.widget_provider.actions.create_issue:
+        parent: oro_ui.widget_provider.action_button.abstract
+        arguments:
+            - luminiare_issue_create_button
+            - luminiare_issue_create_link
+        tags:
+            - { name: oro_ui.view_action_provider, group: activity }

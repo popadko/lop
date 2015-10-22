@@ -4,6 +4,8 @@ namespace Luminaire\Bundle\IssueBundle\Form\Handler;
 
 use Doctrine\Common\Persistence\ObjectManager;
 use Luminaire\Bundle\IssueBundle\Entity\Issue;
+use Oro\Bundle\EntityBundle\Tools\EntityRoutingHelper;
+use Oro\Bundle\FormBundle\Utils\FormUtils;
 use Oro\Bundle\TagBundle\Entity\TagManager;
 use Oro\Bundle\TagBundle\Form\Handler\TagHandlerInterface;
 use Oro\Bundle\UserBundle\Entity\User;
@@ -12,6 +14,8 @@ use Symfony\Component\HttpFoundation\Request;
 
 /**
  * Class IssueHandler
+ *
+ * @SuppressWarnings(PHPMD.CouplingBetweenObjects)
  */
 class IssueHandler implements TagHandlerInterface
 {
@@ -42,10 +46,12 @@ class IssueHandler implements TagHandlerInterface
      */
     public function __construct(
         Request $request,
-        ObjectManager $manager
+        ObjectManager $manager,
+        EntityRoutingHelper $entityRoutingHelper
     ) {
         $this->request = $request;
         $this->manager = $manager;
+        $this->entityRoutingHelper = $entityRoutingHelper;
     }
 
     /**
@@ -76,6 +82,8 @@ class IssueHandler implements TagHandlerInterface
             throw new \LogicException('Form must be set for IssueHandler via setForm method.');
         }
 
+        $this->handleEntityRouting($entity);
+
         $this->form->setData($entity);
 
         if ($this->request->isMethod('POST')) {
@@ -95,6 +103,26 @@ class IssueHandler implements TagHandlerInterface
         }
 
         return false;
+    }
+
+    /**
+     * @param Issue $entity
+     */
+    protected function handleEntityRouting(Issue $entity)
+    {
+        $action            = $this->entityRoutingHelper->getAction($this->request);
+        $targetEntityClass = $this->entityRoutingHelper->getEntityClassName($this->request);
+        $targetEntityId    = $this->entityRoutingHelper->getEntityId($this->request);
+
+        if ($targetEntityClass
+            && !$entity->getId()
+            && $this->request->getMethod() === 'GET'
+            && $action === 'assign'
+            && is_a($targetEntityClass, 'Oro\Bundle\UserBundle\Entity\User', true)
+        ) {
+            $entity->setAssignee($this->entityRoutingHelper->getEntity($targetEntityClass, $targetEntityId));
+            FormUtils::replaceField($this->form, 'assignee', ['read_only' => true]);
+        }
     }
 
     /**

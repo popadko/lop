@@ -1,0 +1,69 @@
+{% import 'OroDataGridBundle::macros.html.twig' as dataGrid %}
+<div class="widget-content">
+    {% if savedId is defined and savedId %}
+        <script type="text/javascript">
+            require(['underscore', 'orotranslation/js/translator', 'oroui/js/widget-manager',
+                'oroui/js/messenger'],
+            function(_, __, widgetManager, messenger) {
+                widgetManager.getWidgetInstance({{ app.request.get('_wid')|json_encode|raw }}, function(widget) {
+                    messenger.notificationFlashMessage('success', __('Issue created successfully'));
+                    widget.remove();
+                });
+            });
+        </script>
+    {% else %}
+        {% if not form.vars.valid and form.vars.errors|length %}
+            <div class="alert alert-error">
+                <div class="message">
+                    {{ form_errors(form) }}
+                </div>
+            </div>
+        {% endif %}
+        <div class="form-container">
+            {% if form.vars.value.id %}
+                {% set formAction = path('luminaire_issue_update', { 'id': form.vars.value.id }) %}
+            {% else %}
+                {% set formAction = path('luminaire_issue_create') %}
+            {% endif %}
+            <form id="{{ form.vars.id }}" name="{{ form.vars.name }}" action="{{ formAction }}" method="post">
+                <fieldset class="form form-horizontal">
+                    <div class="span6">
+                        {{ form_row(form.summary) }}
+                        {{ form_row(form.description) }}
+                        {{ form_row(form.parent, {label: 'luminaire.issue.parent.label'}) }}
+                        {{ form_widget(form.tags) }}
+                    </div>
+                    <div class="span6">
+                        {{ form_row(form.type) }}
+                        {{ form_row(form.priority) }}
+                        {{ form_row(form.status) }}
+                        {{ form_row(form.resolution) }}
+                        {{ form_row(form.reporter) }}
+                        {{ form_row(form.assignee) }}
+                    </div>
+                    <div class="span12">
+                        {{ form_rest(form) }}
+                        {{ form_widget(form.appendCollaborators, {'id': 'appendCollaborators'}) }}
+                        {{ form_widget(form.removeCollaborators, {'id': 'removeCollaborators'}) }}
+                        <label>{{ 'luminaire.issue.collaborators.label'|trans }}</label>
+                        {{ dataGrid.renderGrid('issue-collaborators-update-grid', {collaborators: form.vars.value.collaborators}, { cssClass: 'inner-grid' }) }}
+                        {{ form_rest(form) }}
+                    </div>
+                    <div class="widget-actions form-actions">
+                        <button class="btn" type="reset">{{ 'Cancel'|trans }}</button>
+                        {% if form.vars.value.id %}
+                        <button class="btn btn-primary" type="submit">
+                            {{ 'oro.ui.update_entity'|trans({'%entityName%': 'luminaire.issue.entity_label'|trans}) }}
+                        </button>
+                        {% else %}
+                        <button class="btn btn-primary" type="submit">
+                            {{ 'oro.ui.create_entity'|trans({'%entityName%': 'luminaire.issue.entity_label'|trans}) }}
+                        </button>
+                        {% endif %}
+                    </div>
+                </fieldset>
+            </form>
+            {{ oro_form_js_validation(form) }}
+        </div>
+    {% endif %}
+</div>

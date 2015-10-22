@@ -23,5 +23,6 @@ services:
         arguments:
             - @request
             - @doctrine.orm.entity_manager
+            - @oro_entity.routing_helper
         tags:
             - { name: oro_tag.tag_manager }
