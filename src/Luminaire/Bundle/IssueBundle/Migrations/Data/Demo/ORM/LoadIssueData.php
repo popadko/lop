@@ -351,6 +351,7 @@ class LoadIssueData extends AbstractFixture implements DependentFixtureInterface
         $stories = array_keys(array_filter($this->issues, function ($issue) {
             return $issue['type'] === IssueType::TYPE_STORY;
         }));
+        shuffle($stories);
 
         return $this->getReference($this->getIssueReference(reset($stories)));
     }
