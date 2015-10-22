@@ -1,6 +1,7 @@
 {% extends 'OroUIBundle:actions:view.html.twig' %}
 {% import 'OroUIBundle::macros.html.twig' as UI %}
 {% import 'OroTagBundle::macros.html.twig' as tag %}
+{% import 'LuminaireIssueBundle::macros.html.twig' as issue %}
 {% import 'OroDataGridBundle::macros.html.twig' as dataGrid %}
 {% oro_title_set({params : {"%entity.summary%": entity.summary|default('N/A') }}) %}
 
@@ -57,13 +58,22 @@
                     {{ UI.renderProperty('luminaire.issue.priority.label'|trans, entity.priority) }}
                     {{ UI.renderProperty('luminaire.issue.status.label'|trans, entity.status) }}
                     {{ UI.renderProperty('luminaire.issue.resolution.label'|trans, entity.resolution) }}
-                    {{ UI.renderProperty('luminaire.issue.reporter.label'|trans, entity.reporter) }}
-                    {{ UI.renderProperty('luminaire.issue.assignee.label'|trans, entity.assignee) }}
+                    {% set reporterData %}
+                        {{ issue.user(entity.reporter) }}
+                    {% endset %}
+                    {{ UI.renderHtmlProperty('luminaire.issue.reporter.label'|trans, reporterData) }}
+                    {% set assigneeData %}
+                        {{ issue.user(entity.assignee) }}
+                    {% endset %}
+                    {{ UI.renderHtmlProperty('luminaire.issue.assignee.label'|trans, assigneeData) }}
                     {% if entity.type.isSubtask %}
-                        {{ UI.renderProperty('luminaire.issue.parent.label'|trans, entity.parent) }}
+                        {% set parentData %}
+                            {{ issue.issue(entity.parent) }}
+                        {% endset %}
+                        {{ UI.renderHtmlProperty('luminaire.issue.parent.label'|trans, parentData) }}
                     {% endif %}
                     {% if entity.type.isStory %}
-                        {{ UI.renderProperty('luminaire.issue.children.label'|trans, entity.children|join(', ')) }}
+                        {{ UI.renderHtmlProperty('luminaire.issue.children.label'|trans, issue.issue_list(entity.children)) }}
                     {% endif %}
                     {{ UI.renderProperty('luminaire.issue.created_at.label'|trans, entity.createdAt|date) }}
                     {{ UI.renderProperty('luminaire.issue.updated_at.label'|trans, entity.updatedAt|date) }}

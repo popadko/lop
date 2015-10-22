@@ -1,0 +1,45 @@
+{% macro user_by_raw(id, name) %}
+    {% if id %}
+        {% if resource_granted('oro_user_user_view') %}
+            <a href="{{ path('oro_user_view', {'id': id}) }}">
+                {{ name|escape }}
+            </a>
+        {% else %}
+            {{ name|escape }}
+        {% endif %}
+    {% endif %}
+{% endmacro %}
+
+{% macro user(user) %}
+    {% if user %}
+        {{ _self.user_by_raw(user.id, user|oro_format_name) }}
+    {% endif %}
+{% endmacro %}
+
+{% macro issue(issue) %}
+    {% if issue %}
+        {% if resource_granted('luminaire_issue_view') %}
+            <a href="{{ path('luminaire_issue_show', {'id': issue.id}) }}">
+                {{ issue|escape }}
+            </a>
+        {% else %}
+            {{ issue|escape }}
+        {% endif %}
+    {% endif %}
+{% endmacro %}
+
+{% macro issue_list(issues) %}
+    {% set issueData %}
+        <ul>
+    {% endset %}
+    {% for issue in issues %}
+        {% set issueData %}
+            {{ issueData }}
+            <li>{{ _self.issue(issue) }}</li>
+        {% endset %}
+    {% endfor %}
+    {% set issueData %}
+        {{ issueData }} </ul>
+    {% endset %}
+    {{ issueData }}
+{% endmacro %}

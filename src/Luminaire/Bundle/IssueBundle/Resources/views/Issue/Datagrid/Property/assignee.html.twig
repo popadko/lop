@@ -1,0 +1,3 @@
+{% import 'LuminaireIssueBundle::macros.html.twig' as issue %}
+{% set assigneeId = record.getValue('assigneeId') %}
+{{ issue.user_by_raw(assigneeId, value) }}

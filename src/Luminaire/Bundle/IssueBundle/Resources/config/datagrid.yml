@@ -14,6 +14,8 @@ datagrid:
                     - resolution.label as resolutionLabel
                     - CONCAT(reporter.firstName, CONCAT(' ', reporter.lastName)) as reporterName
                     - CONCAT(assignee.firstName, CONCAT(' ', assignee.lastName)) as assigneeName
+                    - reporter.id as reporterId
+                    - assignee.id as assigneeId
                     - issue.createdAt
                     - issue.updatedAt
                 from:
@@ -42,8 +44,14 @@ datagrid:
                 label: luminaire.issue.resolution.label
             reporterName:
                 label: luminaire.issue.reporter.label
+                type: twig
+                frontend_type: html
+                template: LuminaireIssueBundle:Issue:Datagrid/Property/reporter.html.twig
             assigneeName:
                 label: luminaire.issue.assignee.label
+                type: twig
+                frontend_type: html
+                template: LuminaireIssueBundle:Issue:Datagrid/Property/assignee.html.twig
             createdAt:
                 label: luminaire.issue.created_at.label
                 frontend_type: date
