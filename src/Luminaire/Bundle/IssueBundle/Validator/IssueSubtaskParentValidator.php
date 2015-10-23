@@ -2,7 +2,6 @@
 
 namespace Luminaire\Bundle\IssueBundle\Validator;
 
-use Symfony\Component\Translation\TranslatorInterface;
 use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\ConstraintValidator;
 
@@ -11,20 +10,6 @@ use Symfony\Component\Validator\ConstraintValidator;
  */
 class IssueSubtaskParentValidator extends ConstraintValidator
 {
-    /**
-     * @var TranslatorInterface
-     */
-    protected $translator;
-
-    /**
-     * @param TranslatorInterface $translator
-     */
-    public function __construct(TranslatorInterface $translator)
-    {
-        $this->translator = $translator;
-    }
-
-
     /**
      * @param \Luminaire\Bundle\IssueBundle\Entity\Issue $entity
      * @param Constraint $constraint
@@ -36,13 +21,13 @@ class IssueSubtaskParentValidator extends ConstraintValidator
         }
 
         if (!empty($entity->getParent()) && !$entity->getType()->isSubtask()) {
-            $this->context->buildViolation($this->translator->trans($constraint->message))
+            $this->context->buildViolation($constraint->message)
                 ->atPath('parent')
                 ->addViolation();
         }
 
         if (empty($entity->getParent()) && $entity->getType()->isSubtask()) {
-            $this->context->buildViolation($this->translator->trans($constraint->messageEmptyParent))
+            $this->context->buildViolation($constraint->messageEmptyParent)
                 ->atPath('parent')
                 ->addViolation();
         }

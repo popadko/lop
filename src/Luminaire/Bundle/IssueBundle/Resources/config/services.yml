@@ -37,15 +37,11 @@ services:
 
     luminaire_issue.validator.issue_resolved_resolution_validator:
         class: %luminaire_issue.validator.issue_resolved_resolution_validator.class%
-        arguments:
-            - @translator
         tags:
             - { name: validator.constraint_validator, alias: luminaire_issue.validator.issue_resolved_resolution_validator }
 
     luminaire_issue.validator.issue_subtask_parent_validator:
         class: %luminaire_issue.validator.issue_subtask_parent_validator.class%
-        arguments:
-            - @translator
         tags:
             - { name: validator.constraint_validator, alias: luminaire_issue.validator.issue_subtask_parent_validator }
 

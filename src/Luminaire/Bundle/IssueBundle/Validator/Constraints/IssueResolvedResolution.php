@@ -12,7 +12,7 @@ class IssueResolvedResolution extends Constraint
     /**
      * @var string
      */
-    public $message = 'luminaire.issue.validation.resolved_resolution';
+    public $message = 'Resolution can be set only for Resolved issue.';
 
     /**
      * @inheritDoc

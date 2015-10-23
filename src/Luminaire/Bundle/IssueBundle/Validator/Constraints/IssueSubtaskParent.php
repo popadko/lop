@@ -12,12 +12,12 @@ class IssueSubtaskParent extends Constraint
     /**
      * @var string
      */
-    public $message = 'luminaire.issue.validation.subtask';
+    public $message = 'Parent issue can be set only for Subtask issue.';
 
     /**
      * @var string
      */
-    public $messageEmptyParent = 'luminaire.issue.validation.subtask.empty_parent';
+    public $messageEmptyParent = 'Parent issue must be set for Subtask issue.';
 
     /**
      * @inheritDoc
