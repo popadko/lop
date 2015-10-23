@@ -6,6 +6,7 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Doctrine\Common\Persistence\ManagerRegistry;
+use Doctrine\ORM\EntityRepository;
 use Luminaire\Bundle\IssueBundle\Entity\Repository\IssueRepository;
 use Luminaire\Bundle\IssueBundle\Entity\IssueType as IssueTypeEntity;
 
@@ -37,13 +38,25 @@ class IssueType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
+        $orderByOrderField = function (EntityRepository $repository) {
+            return $repository->createQueryBuilder('e')->orderBy('e.order');
+        };
+
         $builder
             ->add('summary')
             ->add('description')
-            ->add('type')
-            ->add('priority')
-            ->add('status')
-            ->add('resolution')
+            ->add('type', null, [
+                'query_builder' => $orderByOrderField,
+            ])
+            ->add('priority', null, [
+                'query_builder' => $orderByOrderField,
+            ])
+            ->add('status', null, [
+                'query_builder' => $orderByOrderField,
+            ])
+            ->add('resolution', null, [
+                'query_builder' => $orderByOrderField,
+            ])
             ->add('reporter', null, [
                 'label' => 'luminaire.issue.reporter.label'
             ])
@@ -53,7 +66,7 @@ class IssueType extends AbstractType
             ->add('parent', null, [
                 'query_builder' => function (IssueRepository $issueRepository) {
                     $issueTypeClass = 'LuminaireIssueBundle:IssueType';
-                    $type = $this->doctrine->getManagerForClass($issueTypeClass)
+                    $type           = $this->doctrine->getManagerForClass($issueTypeClass)
                         ->getRepository($issueTypeClass)->findOneBy(['name' => IssueTypeEntity::TYPE_STORY]);
                     return $issueRepository->getQueryBuilderByType($type);
                 },
