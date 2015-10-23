@@ -5,7 +5,6 @@ parameters:
     luminaire_issue.entity.issue_priority.class: Luminaire\Bundle\IssueBundle\Entity\IssuePriority
     luminaire_issue.entity.issue_resolution.class: Luminaire\Bundle\IssueBundle\Entity\IssueResolution
     luminaire_issue.issue.manager.api.class: Oro\Bundle\SoapBundle\Entity\Manager\ApiEntityManager
-    luminaire_issue.handler.request_collaborator.class: Luminaire\Bundle\IssueBundle\Handler\RequestCollaboratorHandler
     luminaire_issue.issue_entity_name_provider.class: Luminaire\Bundle\IssueBundle\Provider\IssueEntityNameProvider
     luminaire_issue.validator.issue_subtask_parent_validator.class: Luminaire\Bundle\IssueBundle\Validator\IssueSubtaskParentValidator
     luminaire_issue.validator.issue_resolved_resolution_validator.class: Luminaire\Bundle\IssueBundle\Validator\IssueResolvedResolutionValidator
@@ -22,12 +21,6 @@ services:
         class: %luminaire_issue.condition.note_target.class%
         tags:
             - { name: oro_workflow.condition, alias: note_target }
-
-    luminaire_issue.handler.request_collaborator:
-        class: %luminaire_issue.handler.request_collaborator.class%
-        arguments:
-            - @request_stack
-            - @security.token_storage
 
     luminaire_issue.issue_entity_name_provider:
         class: %luminaire_issue.issue_entity_name_provider.class%
