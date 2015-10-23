@@ -3,10 +3,12 @@
     {% if savedId is defined and savedId %}
         <script type="text/javascript">
             require(['underscore', 'orotranslation/js/translator', 'oroui/js/widget-manager',
-                'oroui/js/messenger'],
-            function(_, __, widgetManager, messenger) {
+                'oroui/js/messenger', 'oroui/js/mediator'],
+            function(_, __, widgetManager, messenger, mediator) {
                 widgetManager.getWidgetInstance({{ app.request.get('_wid')|json_encode|raw }}, function(widget) {
                     messenger.notificationFlashMessage('success', __('Issue created successfully'));
+                    mediator.trigger('datagrid:doRefresh:assignee-issues-grid');
+                    mediator.trigger('datagrid:doRefresh:reporter-issues-grid');
                     widget.remove();
                 });
             });
