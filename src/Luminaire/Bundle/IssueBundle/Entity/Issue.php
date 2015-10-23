@@ -504,30 +504,6 @@ class Issue extends ExtendIssue implements Taggable, EmailHolderInterface
     }
 
     /**
-     * Add child
-     *
-     * @param \Luminaire\Bundle\IssueBundle\Entity\Issue $child
-     *
-     * @return Issue
-     */
-    public function addChild(\Luminaire\Bundle\IssueBundle\Entity\Issue $child)
-    {
-        $this->children[] = $child;
-
-        return $this;
-    }
-
-    /**
-     * Remove child
-     *
-     * @param \Luminaire\Bundle\IssueBundle\Entity\Issue $child
-     */
-    public function removeChild(\Luminaire\Bundle\IssueBundle\Entity\Issue $child)
-    {
-        $this->children->removeElement($child);
-    }
-
-    /**
      * Get children
      *
      * @return \Doctrine\Common\Collections\Collection

@@ -46,12 +46,12 @@ class IssueTest extends EntityTestCase
     }
 
     /**
-     * @dataProvider gettersProvider
+     * @dataProvider dateFieldsProvider
      *
      * @param string $property
      * @param mixed $value
      */
-    public function testCreatedAtGet($property, $value)
+    public function testDateFieldsGet($property, $value)
     {
         $getter = 'get' . ucfirst($property);
 
@@ -66,7 +66,7 @@ class IssueTest extends EntityTestCase
     /**
      * @return array
      */
-    public function gettersProvider()
+    public function dateFieldsProvider()
     {
         return [
             ['createdAt', new \DateTime()],
@@ -103,6 +103,9 @@ class IssueTest extends EntityTestCase
             ],
             ['resolution', null],
             ['priority', $this->getMockWithDisabledConstructor('Luminaire\Bundle\IssueBundle\Entity\IssuePriority')],
+            ['parent', $this->getMockWithDisabledConstructor('Luminaire\Bundle\IssueBundle\Entity\Issue')],
+            ['workflowItem', $this->getMockWithDisabledConstructor('Oro\Bundle\WorkflowBundle\Entity\WorkflowItem')],
+            ['workflowStep', $this->getMockWithDisabledConstructor('Oro\Bundle\WorkflowBundle\Entity\WorkflowStep')],
         ];
     }
 
@@ -112,7 +115,7 @@ class IssueTest extends EntityTestCase
      *
      * @param $property
      */
-    public function testNullableSetters($property)
+    public function testNotNullableSetters($property)
     {
         $setter = 'set' . ucfirst($property);
         $this->entity->$setter(null);
@@ -128,6 +131,52 @@ class IssueTest extends EntityTestCase
             ['type'],
             ['priority'],
         ];
+    }
+
+    /**
+     * @expectedException \PHPUnit_Framework_Error
+     */
+    public function testNotNullAddCollaborator()
+    {
+        $this->entity->addCollaborator(null);
+    }
+
+    /**
+     * @expectedException \PHPUnit_Framework_Error
+     */
+    public function testNotNullRemoveCollaborator()
+    {
+        $this->entity->removeCollaborator(null);
+    }
+
+    /**
+     *
+     */
+    public function testAddChild()
+    {
+        $this->assertFalse(method_exists($this->entity, 'addChild'));
+        $this->assertFalse(method_exists($this->entity, 'removeChild'));
+    }
+
+    public function testCollaborators()
+    {
+        $users = [
+            $this->getMock('Oro\Bundle\UserBundle\Entity\User'),
+            $this->getMock('Oro\Bundle\UserBundle\Entity\User'),
+        ];
+        foreach ($users as $user) {
+            $this->assertSame($this->entity, $this->entity->addCollaborator($user));
+        }
+        $this->assertEquals(new ArrayCollection($users), $this->entity->getCollaborators());
+        foreach ($users as $user) {
+            $this->assertSame($this->entity, $this->entity->addCollaborator($user));
+        }
+        $this->assertEquals(new ArrayCollection($users), $this->entity->getCollaborators());
+        $this->entity->removeCollaborator($users[0]);
+        $this->assertCount(1, $this->entity->getCollaborators());
+        $this->assertSame($users[1], $this->entity->getCollaborators()->first());
+        $this->entity->removeCollaborator($users[1]);
+        $this->assertEmpty($this->entity->getCollaborators());
     }
 
     /**
