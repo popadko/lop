@@ -10,6 +10,8 @@ use Oro\Bundle\TagBundle\Entity\Taggable;
 use Oro\Bundle\UserBundle\Entity\User;
 use Oro\Bundle\EntityConfigBundle\Metadata\Annotation\Config;
 use Luminaire\Bundle\IssueBundle\Model\ExtendIssue;
+use Oro\Bundle\WorkflowBundle\Entity\WorkflowItem;
+use Oro\Bundle\WorkflowBundle\Entity\WorkflowStep;
 
 /**
  * Issue
@@ -17,7 +19,13 @@ use Luminaire\Bundle\IssueBundle\Model\ExtendIssue;
  * @ORM\Table(name="luminaire_issue")
  * @ORM\Entity(repositoryClass="Luminaire\Bundle\IssueBundle\Entity\Repository\IssueRepository")
  * @ORM\HasLifecycleCallbacks()
- * @Config
+ * @Config(
+ *  defaultValues={
+ *      "workflow"={
+ *          "active_workflow"="issue_flow"
+ *      }
+ *  }
+ * )
  *
  * @SuppressWarnings(PHPMD.CouplingBetweenObjects)
  * @SuppressWarnings(PHPMD.TooManyFields)
@@ -136,6 +144,22 @@ class Issue extends ExtendIssue implements Taggable, EmailHolderInterface
      * @ORM\OneToMany(targetEntity="Luminaire\Bundle\IssueBundle\Entity\Issue", mappedBy="parent")
      **/
     private $children;
+
+    /**
+     * @var WorkflowItem
+     *
+     * @ORM\OneToOne(targetEntity="Oro\Bundle\WorkflowBundle\Entity\WorkflowItem")
+     * @ORM\JoinColumn(name="workflow_item_id", referencedColumnName="id", onDelete="SET NULL")
+     */
+    protected $workflowItem;
+
+    /**
+     * @var WorkflowStep
+     *
+     * @ORM\ManyToOne(targetEntity="Oro\Bundle\WorkflowBundle\Entity\WorkflowStep")
+     * @ORM\JoinColumn(name="workflow_step_id", referencedColumnName="id", onDelete="SET NULL")
+     */
+    protected $workflowStep;
 
     /**
      * @ORM\PrePersist
@@ -545,5 +569,43 @@ class Issue extends ExtendIssue implements Taggable, EmailHolderInterface
     public function getEmail()
     {
         return $this->getReporter()->getEmail();
+    }
+
+    /**
+     * @param WorkflowItem $workflowItem
+     * @return Issue
+     */
+    public function setWorkflowItem($workflowItem)
+    {
+        $this->workflowItem = $workflowItem;
+
+        return $this;
+    }
+
+    /**
+     * @return WorkflowItem
+     */
+    public function getWorkflowItem()
+    {
+        return $this->workflowItem;
+    }
+
+    /**
+     * @param WorkflowItem $workflowStep
+     * @return Issue
+     */
+    public function setWorkflowStep($workflowStep)
+    {
+        $this->workflowStep = $workflowStep;
+
+        return $this;
+    }
+
+    /**
+     * @return WorkflowStep
+     */
+    public function getWorkflowStep()
+    {
+        return $this->workflowStep;
     }
 }

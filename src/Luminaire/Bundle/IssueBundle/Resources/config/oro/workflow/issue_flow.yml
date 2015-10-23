@@ -1,0 +1,12 @@
+imports:
+    - { resource: 'issue_flow/steps.yml' }
+    - { resource: 'issue_flow/attributes.yml' }
+    - { resource: 'issue_flow/transitions.yml' }
+    - { resource: 'issue_flow/transition_definitions.yml' }
+
+workflows:
+    issue_flow:
+        label: Issue workflow
+        entity: Luminaire\Bundle\IssueBundle\Entity\Issue
+        entity_attribute: issue
+        start_step: open

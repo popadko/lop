@@ -1,0 +1,33 @@
+workflows:
+    issue_flow:
+        steps:
+            open:
+                label: Open
+                order: 10
+                allowed_transitions:
+                    - start_progress
+                    - resolve
+                    - close
+            in_progress:
+                label: In progress
+                order: 20
+                allowed_transitions:
+                    - stop_progress
+                    - resolve
+                    - close
+            closed:
+                label: Closed
+                order: 30
+                allowed_transitions:
+                    - reopen
+            resolved:
+                label: Resolved
+                order: 40
+                allowed_transitions:
+                    - close
+                    - reopen
+            reopened:
+                label: Reopened
+                order: 50
+                allowed_transitions:
+                    - start_progress

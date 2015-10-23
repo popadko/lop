@@ -1,0 +1,2 @@
+imports:
+    - { resource: 'oro/workflow/issue_flow.yml' }
