@@ -8,7 +8,6 @@ use Doctrine\Common\Persistence\ObjectManager;
 
 use Luminaire\Bundle\IssueBundle\Entity\Issue;
 use Luminaire\Bundle\IssueBundle\Entity\IssuePriority;
-use Luminaire\Bundle\IssueBundle\Entity\IssueStatus;
 use Luminaire\Bundle\IssueBundle\Entity\IssueType;
 
 class LoadIssueData extends AbstractFixture implements DependentFixtureInterface
@@ -28,7 +27,6 @@ class LoadIssueData extends AbstractFixture implements DependentFixtureInterface
             'priority'    => IssuePriority::PRIORITY_MAJOR,
             'resolution'  => null,
             'type'        => IssueType::TYPE_BUG,
-            'status'      => IssueStatus::STATUS_OPEN,
             'tags'        => [],
         ],
         self::ISSUE_STORY => [
@@ -39,7 +37,6 @@ class LoadIssueData extends AbstractFixture implements DependentFixtureInterface
             'priority'    => IssuePriority::PRIORITY_MAJOR,
             'resolution'  => null,
             'type'        => IssueType::TYPE_STORY,
-            'status'      => IssueStatus::STATUS_OPEN,
             'tags'        => [],
         ],
     ];
@@ -89,7 +86,6 @@ class LoadIssueData extends AbstractFixture implements DependentFixtureInterface
             $entity->setResolution($resolution);
         }
         $entity->setType($manager->getRepository('LuminaireIssueBundle:IssueType')->find($data['type']));
-        $entity->setStatus($manager->getRepository('LuminaireIssueBundle:IssueStatus')->find($data['status']));
         foreach ($data['tags'] as $tags) {
             $entity->setTags($tags);
         }

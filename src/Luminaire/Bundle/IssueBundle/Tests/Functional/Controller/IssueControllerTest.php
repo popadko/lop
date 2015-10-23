@@ -7,7 +7,6 @@ use Symfony\Component\DomCrawler\Form;
 
 use Luminaire\Bundle\IssueBundle\Form\Type\IssueType as IssueFormType;
 use Luminaire\Bundle\IssueBundle\Entity\IssuePriority;
-use Luminaire\Bundle\IssueBundle\Entity\IssueStatus;
 use Luminaire\Bundle\IssueBundle\Entity\IssueResolution;
 use Luminaire\Bundle\IssueBundle\Entity\IssueType;
 use Luminaire\Bundle\IssueBundle\Tests\Functional\DataFixtures\LoadIssueData;
@@ -62,7 +61,6 @@ class IssueControllerTest extends TestCase
             'assignee'    => $this->getReference(LoadIssueUsersData::ISSUE_USER_1)->getId(),
             'priority'    => IssuePriority::PRIORITY_BLOCKER,
             'type'        => IssueType::TYPE_TASK,
-            'status'      => IssueStatus::STATUS_OPEN,
         ];
 
         $submittedData = [
@@ -120,7 +118,6 @@ class IssueControllerTest extends TestCase
             'assignee'    => $this->getReference(LoadIssueUsersData::ISSUE_USER_2)->getId(),
             'priority'    => IssuePriority::PRIORITY_MAJOR,
             'type'        => IssueType::TYPE_TASK,
-            'status'      => IssueStatus::STATUS_REOPENED,
         ];
 
         $submittedData = [
@@ -186,7 +183,7 @@ class IssueControllerTest extends TestCase
         $this->assertHtmlResponseStatusCodeEquals($response, 200);
 
         $errors = $crawler->filter('.validation-failed');
-        $this->assertCount(6, $errors);
+        $this->assertCount(5, $errors);
         $errors->each(function (Crawler $error) {
             $this->assertEquals('This value should not be blank.', $error->html());
         });
@@ -244,19 +241,6 @@ class IssueControllerTest extends TestCase
                     'assignee'    => $this->getReference(LoadIssueUsersData::ISSUE_USER_1)->getId(),
                     'priority'    => IssuePriority::PRIORITY_BLOCKER,
                     'type'        => IssueType::TYPE_TASK,
-                    'status'      => IssueStatus::STATUS_RESOLVED,
-                ],
-                'Resolution must be set for Resolved issue.',
-            ],
-            [
-                [
-                    'summary'     => self::ISSUE_SUMMARY,
-                    'description' => 'description',
-                    'reporter'    => $this->getReference(LoadIssueUsersData::ISSUE_USER_1)->getId(),
-                    'assignee'    => $this->getReference(LoadIssueUsersData::ISSUE_USER_1)->getId(),
-                    'priority'    => IssuePriority::PRIORITY_BLOCKER,
-                    'type'        => IssueType::TYPE_TASK,
-                    'status'      => IssueStatus::STATUS_OPEN,
                     'resolution'  => IssueResolution::RESOLUTION_FIXED,
                 ],
                 'Resolution can be set only for Resolved issue.',
@@ -269,7 +253,6 @@ class IssueControllerTest extends TestCase
                     'assignee'    => $this->getReference(LoadIssueUsersData::ISSUE_USER_1)->getId(),
                     'priority'    => IssuePriority::PRIORITY_BLOCKER,
                     'type'        => IssueType::TYPE_SUBTASK,
-                    'status'      => IssueStatus::STATUS_OPEN,
                 ],
                 'Parent issue must be set for Subtask issue.',
             ],
@@ -281,7 +264,6 @@ class IssueControllerTest extends TestCase
                     'assignee'    => $this->getReference(LoadIssueUsersData::ISSUE_USER_1)->getId(),
                     'priority'    => IssuePriority::PRIORITY_BLOCKER,
                     'type'        => IssueType::TYPE_SUBTASK,
-                    'status'      => IssueStatus::STATUS_OPEN,
                     'parent'      => $this->getReference(LoadIssueData::ISSUE_BUG)->getId(),
                 ],
                 'This value is not valid.',
@@ -294,7 +276,6 @@ class IssueControllerTest extends TestCase
                     'assignee'    => $this->getReference(LoadIssueUsersData::ISSUE_USER_1)->getId(),
                     'priority'    => IssuePriority::PRIORITY_BLOCKER,
                     'type'        => IssueType::TYPE_TASK,
-                    'status'      => IssueStatus::STATUS_OPEN,
                     'parent'      => $this->getReference(LoadIssueData::ISSUE_STORY)->getId(),
                 ],
                 'Parent issue can be set only for Subtask issue.',
@@ -324,8 +305,6 @@ class IssueControllerTest extends TestCase
                 ->filter(sprintf('select[name="%s[%s]"] :selected', IssueFormType::NAME, 'priority'))
                 ->extract('value')[0],
             'type'        => $crawler->filter(sprintf('select[name="%s[%s]"] :selected', IssueFormType::NAME, 'type'))
-                ->extract('value')[0],
-            'status'      => $crawler->filter(sprintf('select[name="%s[%s]"] :selected', IssueFormType::NAME, 'status'))
                 ->extract('value')[0],
         ];
     }

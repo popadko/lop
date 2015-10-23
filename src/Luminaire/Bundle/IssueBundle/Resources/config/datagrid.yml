@@ -10,7 +10,6 @@ datagrid:
                     - issue.summary
                     - type.label as typeLabel
                     - priority.label as priorityLabel
-                    - status.label as statusLabel
                     - resolution.label as resolutionLabel
                     - CONCAT(reporter.firstName, CONCAT(' ', reporter.lastName)) as reporterName
                     - CONCAT(assignee.firstName, CONCAT(' ', assignee.lastName)) as assigneeName
@@ -18,17 +17,18 @@ datagrid:
                     - assignee.id as assigneeId
                     - issue.createdAt
                     - issue.updatedAt
+                    - workflowStep.label as workflowStepLabel
                 from:
                     - { table: %luminaire_issue.entity.issue.class%, alias: issue }
                 join:
                     left:
                         - { join: issue.type, alias: type}
                         - { join: issue.priority, alias: priority}
-                        - { join: issue.status, alias: status}
                         - { join: issue.resolution, alias: resolution}
                         - { join: issue.reporter, alias: reporter}
                         - { join: issue.assignee, alias: assignee}
                         - { join: issue.collaborators, alias: collaborator}
+                        - { join: issue.workflowStep, alias: workflowStep }
         columns:
             id:
                 label: luminaire.issue.id.label
@@ -38,8 +38,8 @@ datagrid:
                 label: luminaire.issue.type.label
             priorityLabel:
                 label: luminaire.issue.priority.label
-            statusLabel:
-                label: luminaire.issue.status.label
+            workflowStepLabel:
+                label: luminaire.issue.workflow_step.label
             resolutionLabel:
                 label: luminaire.issue.resolution.label
             reporterName:
@@ -82,8 +82,8 @@ datagrid:
                     data_name: issue.type
                 priorityLabel:
                     data_name: priority.order
-                statusLabel:
-                    data_name: status.order
+                workflowStepLabel:
+                    data_name: workflowStep.stepOrder
                 resolutionLabel:
                     data_name: resolution
                 reporterName:
@@ -118,13 +118,13 @@ datagrid:
                         field_options:
                             class: %luminaire_issue.entity.issue_priority.class%
                             property: label
-                statusLabel:
-                    type: entity
-                    data_name: issue.status
+                workflowStepLabel:
+                    type:      entity
+                    data_name: task.workflowStep
                     options:
+                        field_type: oro_workflow_step_select
                         field_options:
-                            class: %luminaire_issue.entity.issue_status.class%
-                            property: label
+                            workflow_entity_class: %luminaire_issue.entity.issue.class%
                 resolutionLabel:
                     type: entity
                     data_name: issue.resolution
@@ -246,13 +246,10 @@ datagrid:
                 from:
                     - { table: %luminaire_issue.entity.issue.class%, alias: issue }
                 join:
-                    left:
-                        - { join: issue.status, alias: status}
                     inner:
                         - { join: issue.collaborators, alias: collaborator}
                 where:
                     and:
-                        - (status.name not in ('closed', 'resolved'))
                         - (collaborator = @oro_security.security_facade->getLoggedUserId)
         columns:
             id:

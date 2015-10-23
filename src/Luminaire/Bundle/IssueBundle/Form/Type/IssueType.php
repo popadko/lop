@@ -51,9 +51,6 @@ class IssueType extends AbstractType
             ->add('priority', null, [
                 'query_builder' => $orderByOrderField,
             ])
-            ->add('status', null, [
-                'query_builder' => $orderByOrderField,
-            ])
             ->add('resolution', null, [
                 'query_builder' => $orderByOrderField,
             ])

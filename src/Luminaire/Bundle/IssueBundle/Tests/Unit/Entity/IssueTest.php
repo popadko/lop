@@ -96,7 +96,6 @@ class IssueTest extends EntityTestCase
             ['assignee', $this->getMock('Oro\Bundle\UserBundle\Entity\User')],
             ['assignee', null],
             ['reporter', $this->getMock('Oro\Bundle\UserBundle\Entity\User')],
-            ['status', $this->getMockWithDisabledConstructor('Luminaire\Bundle\IssueBundle\Entity\IssueStatus')],
             ['type', $this->getMockWithDisabledConstructor('Luminaire\Bundle\IssueBundle\Entity\IssueType')],
             [
                 'resolution',
@@ -126,7 +125,6 @@ class IssueTest extends EntityTestCase
     {
         return [
             ['reporter'],
-            ['status'],
             ['type'],
             ['priority'],
         ];

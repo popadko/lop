@@ -39,14 +39,14 @@ Luminaire\Bundle\IssueBundle\Entity\Issue:
                     target_type: text
                     target_fields: [priority]
         -
-            name: status
+            name: workflowStep
             relation_type: many-to-one
 
             relation_fields:
                 -
                     name: label
                     target_type: text
-                    target_fields: [status]
+                    target_fields: [workflowStep]
         -
             name: reporter
             relation_type: many-to-one

@@ -13,15 +13,15 @@ class IssueRepository extends EntityRepository
     /**
      * @return array
      */
-    public function getIssuesByStatus()
+    public function countIssuesByWorkflowStep()
     {
         $queryBuilder = $this->createQueryBuilder('i')
             ->select(
                 'count(i) as issue_count',
-                's.name',
+                's.label as name',
                 's.label'
             )
-            ->innerJoin('i.status', 's')
+            ->leftJoin('i.workflowStep', 's')
             ->groupBy('s');
 
         return $queryBuilder->getQuery()->getArrayResult();

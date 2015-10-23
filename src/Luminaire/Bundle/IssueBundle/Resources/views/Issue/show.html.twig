@@ -11,7 +11,7 @@
             <div class="btn-group">
                 {{ UI.addButton({
                     'path': path('luminaire_issue_create', { parent_id: entity.id }),
-                    'entity_label': 'luminaire.issue.issuestatus.subtask.label'|trans
+                    'entity_label': 'luminaire.issue.issuetype.subtask.label'|trans
                 }) }}
             </div>
         {% endif %}
@@ -56,7 +56,6 @@
                     {{ UI.renderProperty('luminaire.issue.description.label'|trans, entity.description) }}
                     {{ UI.renderProperty('luminaire.issue.type.label'|trans, entity.type) }}
                     {{ UI.renderProperty('luminaire.issue.priority.label'|trans, entity.priority) }}
-                    {{ UI.renderProperty('luminaire.issue.status.label'|trans, entity.status) }}
                     {{ UI.renderProperty('luminaire.issue.resolution.label'|trans, entity.resolution) }}
                     {% set reporterData %}
                         {{ issue.user(entity.reporter) }}

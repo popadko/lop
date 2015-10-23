@@ -32,6 +32,12 @@ use Oro\Bundle\WorkflowBundle\Entity\WorkflowStep;
  */
 class Issue extends ExtendIssue implements Taggable, EmailHolderInterface
 {
+    const WORKFLOW_STEP_NAME_OPEN = 'Open';
+    const WORKFLOW_STEP_NAME_IN_PROGRESS = 'In progress';
+    const WORKFLOW_STEP_NAME_CLOSED = 'Closed';
+    const WORKFLOW_STEP_NAME_RESOLVED = 'Resolved';
+    const WORKFLOW_STEP_NAME_REOPENED = 'Reopened';
+
     /**
      * @var integer
      *
@@ -62,14 +68,6 @@ class Issue extends ExtendIssue implements Taggable, EmailHolderInterface
      * @ORM\JoinColumn(name="type_name", referencedColumnName="name", nullable=false)
      */
     private $type;
-
-    /**
-     * @var IssueStatus
-     *
-     * @ORM\ManyToOne(targetEntity="IssueStatus")
-     * @ORM\JoinColumn(name="status_name", referencedColumnName="name", nullable=false)
-     */
-    private $status;
 
     /**
      * @var IssuePriority
@@ -295,30 +293,6 @@ class Issue extends ExtendIssue implements Taggable, EmailHolderInterface
     public function getType()
     {
         return $this->type;
-    }
-
-    /**
-     * Set status
-     *
-     * @param IssueStatus $status
-     *
-     * @return Issue
-     */
-    public function setStatus(IssueStatus $status)
-    {
-        $this->status = $status;
-
-        return $this;
-    }
-
-    /**
-     * Get status
-     *
-     * @return IssueStatus
-     */
-    public function getStatus()
-    {
-        return $this->status;
     }
 
     /**
@@ -607,5 +581,16 @@ class Issue extends ExtendIssue implements Taggable, EmailHolderInterface
     public function getWorkflowStep()
     {
         return $this->workflowStep;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isResolvedWorkflowIssue()
+    {
+        if (!$this->getWorkflowStep()) {
+            return false;
+        }
+        return $this->getWorkflowStep()->getName() === 'resolved';
     }
 }

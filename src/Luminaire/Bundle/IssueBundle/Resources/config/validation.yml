@@ -9,8 +9,6 @@ Luminaire\Bundle\IssueBundle\Entity\Issue:
                 max: 255
         description:
             - NotBlank: ~
-        status:
-            - NotBlank: ~
         priority:
             - NotBlank: ~
         type:

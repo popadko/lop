@@ -15,11 +15,6 @@ class IssueResolvedResolution extends Constraint
     public $message = 'luminaire.issue.validation.resolved_resolution';
 
     /**
-     * @var string
-     */
-    public $messageResolution = 'luminaire.issue.validation.resolved_resolution.require';
-
-    /**
      * @inheritDoc
      */
     public function getTargets()

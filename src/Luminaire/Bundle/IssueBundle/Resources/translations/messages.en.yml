@@ -7,7 +7,6 @@ luminaire:
         summary.label: Summary
         description.label: Description
         assignee.label: Assignee
-        status.label: Status
         type.label: Type
         resolution.label: Resolution
         priority.label: Priority
@@ -17,6 +16,7 @@ luminaire:
         collaborators.label: Collaborators
         created_at.label: Created on
         updated_at.label: Updated on
+        workflow_step.label: Status
 
         issuepriority:
             entity_label: Issue Priority
@@ -34,15 +34,6 @@ luminaire:
             order.label: Order
             label.label: Label
 
-        issuestatus:
-            entity_label: Issue Status
-            entity_plural_label: Issue Statuses
-            entity_description: Represent Issue Status
-            name.label: Name
-            order.label: Order
-            label.label: Label
-            subtask.label: Subtask
-
         issuetype:
             entity_label: Issue type
             entity_plural_label: Issue types
@@ -50,6 +41,7 @@ luminaire:
             name.label: Name
             order.label: Order
             label.label: Label
+            subtask.label: Subtask
 
         block:
             general: General Information
@@ -65,7 +57,7 @@ luminaire:
         import: Import Issues
 
         dashboard:
-            issues_by_status_chart:
+            issues_by_workflow_step_chart:
                 title:       Issues by status
                 description: This widget displays a breakdown of issues by status in form of a bar chart.
 
@@ -82,7 +74,6 @@ luminaire:
 
         validation:
             resolved_resolution: Resolution can be set only for Resolved issue.
-            resolved_resolution.require: Resolution must be set for Resolved issue.
             subtask: Parent issue can be set only for Subtask issue.
             subtask.empty_parent: Parent issue must be set for Subtask issue.
 

@@ -1,10 +1,10 @@
 oro_dashboard_config:
     widgets:
-        issues_by_status:
-            label:       luminaire.issue.dashboard.issues_by_status_chart.title
-            route:       luminaire_issue_issues_by_status_chart
+        issues_by_workflow_step:
+            label:       luminaire.issue.dashboard.issues_by_workflow_step_chart.title
+            route:       luminaire_issue_issues_by_workflow_step_chart
             acl:         luminaire_issue_view
-            description: luminaire.issue.dashboard.issues_by_status_chart.description
+            description: luminaire.issue.dashboard.issues_by_workflow_step_chart.description
         collaborator_issues:
             label:       luminaire.issue.dashboard.collaborator_issues.title
             route:       oro_dashboard_widget
