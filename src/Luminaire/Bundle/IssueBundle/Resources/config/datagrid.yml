@@ -222,16 +222,38 @@ datagrid:
                 selectors:
                     included: '#appendCollaborators'
                     excluded: '#removeCollaborators'
+            toolbarOptions:
+                addResetAction: false
+                addRefreshAction: false
 
     issue-collaborators-grid:
-        extends: users-grid
         source:
+            type: orm
+            acl_resource: luminaire_issue_view
             query:
+                select:
+                    - collaborator.username
+                from:
+                    - { table: %luminaire_issue.entity.issue.class%, alias: issue }
+                join:
+                    inner:
+                        - { join: issue.collaborators, alias: collaborator}
                 where:
                     and:
-                        - (u in (:collaborators))
+                        - (issue = :issue)
             bind_parameters:
-                - collaborators
+                - issue
+        columns:
+            username:
+                label: oro.user.username.label
+        sorters:
+            columns:
+                username: { data_name: collaborator.username }
+        filters:
+            columns:
+                username:
+                    data_name: collaborator.username
+                    type:      string
 
     dashboard-collaborator-issues-grid:
         source:
