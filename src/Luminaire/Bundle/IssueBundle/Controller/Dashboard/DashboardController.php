@@ -13,12 +13,16 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 class DashboardController extends Controller
 {
     /**
+     * @param string $widget
+     *
      * @Route(
      *      "/issue/status_chart/{widget}",
      *      name="luminaire_issue_issues_by_workflow_step_chart",
      *      requirements={"widget"="[\w-]+"}
      * )
      * @Template("LuminaireIssueBundle:Dashboard:issueByWorkflowStep.html.twig")
+     *
+     * @return array
      */
     public function issueByWorkflowStepAction($widget)
     {

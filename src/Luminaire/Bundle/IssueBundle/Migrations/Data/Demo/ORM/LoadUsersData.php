@@ -9,8 +9,14 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
 use Doctrine\Common\DataFixtures\AbstractFixture;
 use Doctrine\Common\Persistence\ObjectManager;
 
+/**
+ * Class LoadUsersData
+ */
 class LoadUsersData extends AbstractFixture implements ContainerAwareInterface
 {
+    /**
+     * @var array
+     */
     protected $data = [
         [
             'username'   => 'john',
@@ -59,7 +65,7 @@ class LoadUsersData extends AbstractFixture implements ContainerAwareInterface
     }
 
     /**
-     * @param $name
+     * @param $data
      */
     public function createUser($data)
     {

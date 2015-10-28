@@ -1,6 +1,6 @@
 <?php
 
-namespace Luminaire\Bundle\IssueBundle\Tests\Unit\Entity\Repository;
+namespace Luminaire\Bundle\IssueBundle\Tests\Functional\Entity\Repository;
 
 use Luminaire\Bundle\IssueBundle\Entity\Repository\IssueRepository;
 use Luminaire\Bundle\IssueBundle\Entity\IssueType;
@@ -53,6 +53,9 @@ class IssueRepositoryTest extends TestCase
     }
 
     /**
+     * @param $dql
+     * @param IssueType|null $type
+     *
      * @dataProvider queryBuilderByTypeProvider
      */
     public function testGetQueryBuilderByType($dql, IssueType $type = null)
@@ -64,6 +67,9 @@ class IssueRepositoryTest extends TestCase
         }
     }
 
+    /**
+     * @return array
+     */
     public function queryBuilderByTypeProvider()
     {
         return [

@@ -9,9 +9,9 @@ use Oro\Bundle\EmailBundle\Model\EmailHolderInterface;
 use Oro\Bundle\TagBundle\Entity\Taggable;
 use Oro\Bundle\UserBundle\Entity\User;
 use Oro\Bundle\EntityConfigBundle\Metadata\Annotation\Config;
-use Luminaire\Bundle\IssueBundle\Model\ExtendIssue;
 use Oro\Bundle\WorkflowBundle\Entity\WorkflowItem;
 use Oro\Bundle\WorkflowBundle\Entity\WorkflowStep;
+use Luminaire\Bundle\IssueBundle\Model\ExtendIssue;
 
 /**
  * Issue
@@ -422,8 +422,6 @@ class Issue extends ExtendIssue implements Taggable, EmailHolderInterface
     /**
      * Set createdAt
      *
-     * @param \DateTime $createdAt
-     *
      * @return Issue
      */
     public function setCreatedAt()
@@ -433,8 +431,6 @@ class Issue extends ExtendIssue implements Taggable, EmailHolderInterface
 
     /**
      * Set updatedAt
-     *
-     * @param \DateTime $updatedAt
      *
      * @return Issue
      */
@@ -450,7 +446,7 @@ class Issue extends ExtendIssue implements Taggable, EmailHolderInterface
      *
      * @return Issue
      */
-    public function addCollaborator(\Oro\Bundle\UserBundle\Entity\User $collaborator)
+    public function addCollaborator(User $collaborator)
     {
         if (!$this->collaborators->contains($collaborator)) {
             $this->collaborators[] = $collaborator;
@@ -462,9 +458,9 @@ class Issue extends ExtendIssue implements Taggable, EmailHolderInterface
     /**
      * Remove collaborator
      *
-     * @param \Oro\Bundle\UserBundle\Entity\User $collaborator
+     * @param User $collaborator
      */
-    public function removeCollaborator(\Oro\Bundle\UserBundle\Entity\User $collaborator)
+    public function removeCollaborator(User $collaborator)
     {
         $this->collaborators->removeElement($collaborator);
     }
@@ -486,7 +482,7 @@ class Issue extends ExtendIssue implements Taggable, EmailHolderInterface
      *
      * @return Issue
      */
-    public function setParent(\Luminaire\Bundle\IssueBundle\Entity\Issue $parent = null)
+    public function setParent(Issue $parent = null)
     {
         $this->parent = $parent;
 

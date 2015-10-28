@@ -98,8 +98,11 @@ class NoteTargetTest extends TestCase
         $this->noteTarget->initialize(['note' => 1, 'targetClass' => 2]);
     }
 
-
     /**
+     * @param $options
+     * @param $message
+     * @param $expected
+     *
      * @dataProvider toArrayDataProvider
      */
     public function testToArray($options, $message, $expected)
@@ -147,6 +150,10 @@ class NoteTargetTest extends TestCase
     }
 
     /**
+     * @param $options
+     * @param $message
+     * @param $expected
+     *
      * @dataProvider compileDataProvider
      */
     public function testCompile($options, $message, $expected)

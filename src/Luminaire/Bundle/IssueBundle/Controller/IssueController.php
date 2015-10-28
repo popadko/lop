@@ -32,14 +32,19 @@ class IssueController extends Controller
     }
 
     /**
+     * @param Request $request
+     *
      * @Route("/create", name="luminaire_issue_create")
      * @Template("LuminaireIssueBundle:Issue:update.html.twig")
      * @AclAncestor("luminaire_issue_view")
+     *
+     * @return array|RedirectResponse
      */
     public function createAction(Request $request)
     {
         $issue = new Issue();
-        if ($parentId = $request->get('parent_id')) {
+        $parentId = $request->get('parent_id');
+        if ($parentId) {
             $type   = $this->getIssueTypeRepository()->findOneBy(['name' => IssueTypeEntity::TYPE_STORY]);
             $parent = $this->getIssueRepository()->findOneBy([
                 'id'   => $parentId,
@@ -47,10 +52,18 @@ class IssueController extends Controller
             ]);
             if ($parent) {
                 $issue->setParent($parent);
-                $issue->setType($this->getIssueTypeRepository()->findOneBy(['name' => IssueTypeEntity::TYPE_SUBTASK]));
+                $issue->setType($this->getIssueType());
             }
         }
         return $this->update($issue);
+    }
+
+    /**
+     * @return IssueTypeEntity
+     */
+    protected function getIssueType()
+    {
+        return $this->getIssueTypeRepository()->findOneBy(['name' => IssueTypeEntity::TYPE_SUBTASK]);
     }
 
     /**
@@ -72,9 +85,13 @@ class IssueController extends Controller
     }
 
     /**
+     * @param Issue $entity
+     *
      * @Route("/update/{id}", name="luminaire_issue_update", requirements={"id":"\d+"})
      * @Template()
      * @AclAncestor("luminaire_issue_update")
+     *
+     * @return array|RedirectResponse
      */
     public function updateAction(Issue $entity)
     {
@@ -83,7 +100,6 @@ class IssueController extends Controller
 
     /**
      * @param Issue $entity
-     * @param Request $request
      *
      * @return array|RedirectResponse
      */
@@ -118,8 +134,12 @@ class IssueController extends Controller
     }
 
     /**
+     * @param Issue $entity
+     *
      * @Route("/{id}", name="luminaire_issue_show", requirements={"id"="\d+"})
      * @Template
+     *
+     * @return array
      */
     public function showAction(Issue $entity)
     {

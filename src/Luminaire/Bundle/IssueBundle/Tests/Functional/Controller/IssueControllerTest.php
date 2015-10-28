@@ -1,6 +1,6 @@
 <?php
 
-namespace OroB2B\Bundle\OrderBundle\Tests\Functional\Controller;
+namespace Luminaire\Bundle\IssueBundle\Tests\Functional\Controller;
 
 use Symfony\Component\DomCrawler\Crawler;
 use Symfony\Component\DomCrawler\Form;
@@ -18,7 +18,13 @@ use Luminaire\Bundle\IssueBundle\Tests\Functional\TestCase;
  */
 class IssueControllerTest extends TestCase
 {
+    /**
+     *
+     */
     const ISSUE_SUMMARY = 'new issue';
+    /**
+     *
+     */
     const ISSUE_SUMMARY_UPDATED = 'summary updated';
 
     /**
@@ -34,6 +40,9 @@ class IssueControllerTest extends TestCase
         ]);
     }
 
+    /**
+     *
+     */
     public function testIndex()
     {
         $crawler = $this->client->request('GET', $this->getUrl('luminaire_issue_index'));
@@ -158,6 +167,9 @@ class IssueControllerTest extends TestCase
         $this->assertContains(self::ISSUE_SUMMARY_UPDATED, $html);
     }
 
+    /**
+     *
+     */
     public function testCreateBlank()
     {
         $crawler  = $this->client->request('GET', $this->getUrl('luminaire_issue_create'));
@@ -189,6 +201,9 @@ class IssueControllerTest extends TestCase
         });
     }
 
+    /**
+     *
+     */
     public function testCreateEmptyResolution()
     {
         foreach ($this->dataProviderForCustomConstraints() as $data) {
@@ -198,6 +213,10 @@ class IssueControllerTest extends TestCase
 
     }
 
+    /**
+     * @param $issueData
+     * @param $errorMessage
+     */
     protected function createEmptyResolutionProcess($issueData, $errorMessage)
     {
         $crawler  = $this->client->request('GET', $this->getUrl('luminaire_issue_create'));
@@ -285,7 +304,6 @@ class IssueControllerTest extends TestCase
 
     /**
      * @param Crawler $crawler
-     * @param int $count
      * @return array
      */
     protected function getActualIssueData(Crawler $crawler)

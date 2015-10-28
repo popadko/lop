@@ -13,7 +13,7 @@ class IssueNormalizer extends ConfigurableEntityNormalizer
     /**
      * @inheritDoc
      */
-    public function supportsNormalization($data, $format = null, array $context = array())
+    public function supportsNormalization($data, $format = null, array $context = [])
     {
         return $data instanceof Issue;
     }

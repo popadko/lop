@@ -40,9 +40,10 @@ class IssueHandler implements TagHandlerInterface
     protected $form;
 
     /**
-     * @param FormInterface $form
+     * IssueHandler constructor.
      * @param Request $request
      * @param ObjectManager $manager
+     * @param EntityRoutingHelper $entityRoutingHelper
      */
     public function __construct(
         Request $request,
@@ -56,6 +57,7 @@ class IssueHandler implements TagHandlerInterface
 
     /**
      * @param FormInterface $form
+     * @return IssueHandler
      */
     public function setForm(FormInterface $form)
     {

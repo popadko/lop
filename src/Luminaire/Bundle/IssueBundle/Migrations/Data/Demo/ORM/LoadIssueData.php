@@ -311,6 +311,10 @@ class LoadIssueData extends AbstractFixture implements DependentFixtureInterface
 
     }
 
+    /**
+     * @param $transitionName
+     * @return mixed
+     */
     protected function getTransitionsFlow($transitionName)
     {
         $flow = [
@@ -347,7 +351,6 @@ class LoadIssueData extends AbstractFixture implements DependentFixtureInterface
     }
 
     /**
-     * @param ObjectManager $manager
      * @param array $data
      * @return Issue
      */

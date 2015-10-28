@@ -70,12 +70,13 @@ class IssueEntityNameProviderTest extends TestCase
     }
 
     /**
-     * @dataProvider namesDQLProvider
-     *
      * @param $format
      * @param $locale
-     * @param $entity
+     * @param $className
+     * @param $alias
      * @param $return
+     *
+     * @dataProvider namesDQLProvider
      */
     public function testGetNameDQL($format, $locale, $className, $alias, $return)
     {
