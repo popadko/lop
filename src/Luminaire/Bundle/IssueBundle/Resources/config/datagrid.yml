@@ -54,10 +54,10 @@ datagrid:
                 template: LuminaireIssueBundle:Issue:Datagrid/Property/assignee.html.twig
             createdAt:
                 label: luminaire.issue.created_at.label
-                frontend_type: date
+                frontend_type: datetime
             updatedAt:
                 label: luminaire.issue.updated_at.label
-                frontend_type: date
+                frontend_type: datetime
         properties:
             id: ~
             update_link:
@@ -280,7 +280,7 @@ datagrid:
                 label: luminaire.issue.summary.label
             updatedAt:
                 label: luminaire.issue.updated_at.label
-                frontend_type: date
+                frontend_type: datetime
         properties:
             id: ~
             update_link:
