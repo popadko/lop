@@ -79,13 +79,13 @@ datagrid:
                 summary:
                     data_name: issue.summary
                 typeLabel:
-                    data_name: issue.type
+                    data_name: type.order
                 priorityLabel:
                     data_name: priority.order
                 workflowStepLabel:
                     data_name: workflowStep.stepOrder
                 resolutionLabel:
-                    data_name: resolution
+                    data_name: resolution.order
                 reporterName:
                     data_name: reporter
                 assigneeName:
