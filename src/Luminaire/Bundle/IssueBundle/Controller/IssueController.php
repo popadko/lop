@@ -45,10 +45,9 @@ class IssueController extends Controller
         $issue = new Issue();
         $parentId = $request->get('parent_id');
         if ($parentId) {
-            $type   = $this->getIssueTypeRepository()->findOneBy(['name' => IssueTypeEntity::TYPE_STORY]);
             $parent = $this->getIssueRepository()->findOneBy([
                 'id'   => $parentId,
-                'type' => $type,
+                'type' => IssueTypeEntity::TYPE_STORY,
             ]);
             if ($parent) {
                 $issue->setParent($parent);
