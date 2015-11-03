@@ -122,13 +122,7 @@ class IssueController extends Controller
                 ];
             },
             $this->get('translator')->trans('luminaire.issue.controller.issue.saved.message'),
-            $this->get('luminaire_issue.form.handler.entity')->setForm($form),
-            function (Issue $entity, FormInterface $form) {
-                return [
-                    'entity' => $entity,
-                    'form'   => $form->createView(),
-                ];
-            }
+            $this->get('luminaire_issue.form.handler.entity')->setForm($form)
         );
     }
 
